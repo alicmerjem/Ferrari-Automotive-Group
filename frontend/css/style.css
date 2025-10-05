@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
+
+.hero-content {
+  position: absolute;
+  top: 35%;
+  left: 6%;
+  z-index: 2;
+  background: rgba(20, 20, 20, 0.55);
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  max-width: 600px;
+  color: white;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+}
+
+.hero-content h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.9rem;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.hero-content p {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  text-align: justify;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #e5e5e5;
+  text-justify: inter-word;
+  margin-bottom: 10;
+}
+
+.hero-content .btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 0;
+  text-align: center;
+  text-decoration: none;
+  backdrop-filter: blur(2px);
+}
+
+.hero-content .btn:hover {
+  background: #c20000;
+  border-color: #c20000;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    top: 25%;
+    left: 5%;
+    max-width: 85%;
+    padding: 1.5rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+.navbar .logo {
+  width: 50px;
+  height: auto;
+  padding-right: 10px;
+}
+
+.navbar .brand-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.navbar .nav-link:hover {
+  color: #c20000; 
+}
+
+.navbar .nav-link {
+  font-family: 'Oswald', sans-serif; 
+  font-size: 1.6rem;               
+  font-weight: 500;                 
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #c20000; 
+}
+
+.featured-cars {
+  background-color: #1c1c1c;
+}
+
+.featured-cars .section-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #ffffff;
+}
+
+.car-card {
+  background: #2e2e2e;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.car-card .car-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.car-card .car-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.car-card .car-specs {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.8rem;
+}
+
+.car-card .btn {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+}
