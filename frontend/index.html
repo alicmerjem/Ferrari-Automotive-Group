@@ -34,59 +34,35 @@
   </div>
 </nav>
 
+<div id="app">
 
-    <section class="hero-section">
-        <video autoplay muted loop playsinline class="hero-video">
-            <source src="assets/videos/Untitled video - Made with Clipchamp (3).mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="hero-content text-center text-white">
-            <h1>Ferrari 849 Testarossa</h1>
-            <p>Experience unmatched luxury and performance</p>
-            <p>Precision engineering, breathtaking design, pure exhilaration.</p>
-            <p>Join the elite community of Ferrari enthusiasts.</p>
-            <a class="btn btn-danger btn-lg" href="#" id="cta-inventory">View Inventory</a>
-        </div>
-    </section>
+</div>
+   
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  &copy; 2025 Ferrari Automotive Group. All rights reserved.
+</footer>
 
-    <section id="inventory" class="featured-cars py-5">
-  <div class="container">
-    <h2 class="section-title text-center mb-5">Featured Cars</h2>
-    <div class="row justify-content-center g-4">
+<script>
+  const app = document.getElementById('app');
 
-      <div class="col-md-4">
-        <div class="car-card">
-          <img src="assets/images/849_Testarossa_16x9_05.jpg" alt="Ferrari 849 Testarossa" class="car-img">
-          <h3 class="car-name">Ferrari 849 Testarossa</h3>
-          <p class="car-specs">Unmatched performance, precision engineering</p>
-          <a href="#" class="btn btn-outline-danger btn-sm">View More</a>
-        </div>
-      </div>
+  async function loadView(view) {
+    const res = await fetch(`views/${view}.html`);
+    const html = await res.text();
+    app.innerHTML = html;
+  }
 
-      <!-- Car 2 -->
-      <div class="col-md-4">
-        <div class="car-card">
-          <img src="assets/images/Ferrari-F8-Tributo-Side.jpg" alt="Ferrari F8 Tributo" class="car-img">
-          <h3 class="car-name">Ferrari F8 Tributo</h3>
-          <p class="car-specs">Breathtaking speed and aerodynamic design</p>
-          <a href="#" class="btn btn-outline-danger btn-sm">View More</a>
-        </div>
-      </div>
+  // Navbar clicks
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const view = e.target.getAttribute('href').substring(1); // remove #
+      loadView(view);
+    });
+  });
 
-      <!-- Car 3 -->
-      <div class="col-md-4">
-        <div class="car-card">
-          <img src="assets/images/roma_6_xrdbmt.jpg" alt="Ferrari Roma" class="car-img">
-          <h3 class="car-name">Ferrari Roma</h3>
-          <p class="car-specs">Elegance, comfort, and thrilling performance</p>
-          <a href="#" class="btn btn-outline-danger btn-sm">View More</a>
-        </div>
-      </div>
+  // Load default view
+  loadView('home');
+</script>
 
-    </div>
-  </div>
-</section>
-
-    
 </body>
 </html>
