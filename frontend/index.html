@@ -6,6 +6,7 @@
     <title>Ferrari Automotive Group</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/spapp.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -15,8 +16,8 @@
     <img src="assets/icons/Ferrari-Logo.avif" alt="Ferrari Logo" class="logo me-2">
     <span class="brand-name">Ferrari Automotive Group</span>
   </div>
-  <div class="d-none d-md-flex"> <!-- hidden on mobile, shown on md+ -->
-    <a href="#hero" class="nav-link text-white ms-4">Home</a>
+  <div class="d-none d-md-flex">
+    <a href="#home" class="nav-link text-white ms-4">Home</a>
     <a href="#inventory" class="nav-link text-white ms-4">Inventory</a>
     <a href="#aboutus" class="nav-link text-white ms-4">About</a>
     <a href="#login" class="nav-link text-white ms-4">Login/Register</a>
@@ -26,7 +27,7 @@
   </button>
   <div class="collapse" id="mobileNav">
     <div class="d-flex flex-column bg-dark bg-opacity-75 p-3">
-      <a href="#hero" class="nav-link text-white">Home</a>
+      <a href="#home" class="nav-link text-white">Home</a>
       <a href="#inventory" class="nav-link text-white">Inventory</a>
       <a href="#aboutus" class="nav-link text-white">About</a>
       <a href="#login" class="nav-link text-white">Login/Register</a>
@@ -34,33 +35,20 @@
   </div>
 </nav>
 
-<div id="app">
-
-</div>
+<main id="spapp" role="main">
+    <section id="home" data-load="home.html"></section>
+    <section id="inventory" data-load="inventory.html"></section>
+    <section id="aboutus" data-load="aboutus.html"></section>
+    <section id="login" data-load="login.html"></section>
+</main>
    
 <footer class="bg-dark text-white text-center py-3 mt-5">
   &copy; 2025 Ferrari Automotive Group. All rights reserved.
 </footer>
 
-<script>
-  const app = document.getElementById('app');
-
-  async function loadView(view) {
-    const res = await fetch(`views/${view}.html`);
-    const html = await res.text();
-    app.innerHTML = html;
-  }
-
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const view = e.target.getAttribute('href').substring(1); // remove #
-      loadView(view);
-    });
-  });
-
-  loadView('home');
-</script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery.spapp.min.js"></script>
+    <script src="./js/script.js"></script>
 
 </body>
 </html>
