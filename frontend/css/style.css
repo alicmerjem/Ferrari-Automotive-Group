@@ -317,3 +317,78 @@ body {
   background-color: #e30613;
   transform: translateY(-2px);
 }
+.about-page {
+    background: url('../assets/images/laferrari.webp') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    position: relative;
+}
+
+.about-page::before {
+    content: "";
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 0;
+}
+
+.about-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+.about-hero h1 {
+    padding-top: 100px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    color: #c20000;
+}
+
+.about-hero .subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+}
+
+.about-story .story-img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+.mission-vision .mv-card {
+    background: rgba(255,255,255,0.05);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    color: #fff;
+}
+
+.mission-vision .mv-card h3 {
+    font-family: 'Oswald', sans-serif;
+    color: #c20000;
+    margin-bottom: 1rem;
+}
+
+.team-section .team-img {
+    width: 100%;
+    border-radius: 5%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.cta-section h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    color: #c20000;
+    margin-bottom: 1rem;
+}
+
+.cta-section p {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
