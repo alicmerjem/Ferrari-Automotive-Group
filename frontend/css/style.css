@@ -200,3 +200,120 @@ body {
   font-family: 'Lato', sans-serif;
   font-size: 0.9rem;
 }
+
+.sponsors-section {
+  background-color: #1f1f1f; 
+  color: #fff;
+}
+
+.sponsors-section .section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  color: #b11226;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+
+.sponsor-logo {
+  max-width: 150px;
+  opacity: 0.7;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.sponsor-logo:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.about-section {
+  background-color: #1a1a1a; 
+  color: #b11226;
+  padding: 80px 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.about-section .section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  color: #b11226;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.about-section .about-text {
+  max-width: 800px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: justify;
+  text-align: center;
+}
+
+.about-section .btn {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: Oswald;
+}
+
+.about-section .btn:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.contact-section {
+  background-color: #1f1f1f;
+  color: #fff;
+  padding: 80px 0;
+}
+
+.contact-section .section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  color: #b11226;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.contact-intro {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.contact-form .form-control {
+  background-color: #2e2e2e;
+  border: 1px solid #444;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.contact-form .form-control:focus {
+  border-color: #b11226;
+  box-shadow: 0 0 10px rgba(177, 18, 38, 0.4);
+  outline: none;
+}
+
+.contact-form .btn {
+  background-color: #b11226;
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.contact-form .btn:hover {
+  background-color: #e30613;
+  transform: translateY(-2px);
+}
