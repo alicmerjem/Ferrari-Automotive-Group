@@ -318,9 +318,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* === ABOUT PAGE SECTIONS === */
-
-/* 1. SHOWROOM HERO */
 .about-hero {
   background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
               url('../assets/images/showroom.jpg') center/cover no-repeat;
@@ -338,7 +335,6 @@ body {
   font-weight: 600;
 }
 
-/* 2. MISSION & VISION */
 .about-mv {
   background-color: #222;
 }
@@ -353,7 +349,6 @@ body {
   line-height: 1.7;
 }
 
-/* 3. FOUNDERS & VISIONARIES */
 .about-founders {
   background-color: #1a1a1a;
 }
@@ -368,7 +363,6 @@ body {
   transform: scale(1.08);
 }
 
-/* 4. JOIN OUR JOURNEY */
 .about-cta {
   background-color: #2b2b2b;
   color: #fff;
@@ -380,4 +374,269 @@ body {
 .about-cta p {
   font-size: 1.1rem;
   margin-bottom: 1rem;
+}
+
+.auth-section {
+  position: relative;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.register-section {
+  background-image: url('../assets/images/background2.jpeg'); 
+}
+
+.login-section {
+  background-image: url('../assets/images/background2.jpeg'); 
+}
+
+.auth-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-form-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-title {
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.auth-form-container .form-control {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+
+.auth-form-container .form-control::placeholder {
+  color: #ddd;
+}
+
+.auth-form-container .btn-danger {
+  background-color: #d40000;
+  border: none;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.auth-form-container .btn-danger:hover {
+  background-color: #b00000;
+}
+
+.auth-switch {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.auth-switch a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+.inventory-section {
+  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+  min-height: 100vh;
+  padding: 80px 0;
+  padding-top: 120;
+}
+
+.inventory-section .section-title {
+  margin-top: 90px;
+  font-family: 'Oswald', sans-serif;
+  color: #b11226;
+}
+
+.car-card {
+  background-color: #111;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.car-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+}
+
+.car-title {
+  color: #b11226;
+  font-weight: bold;
+}
+
+.car-desc {
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .inventory-section {
+    padding-top: 120px;
+  }
+}
+
+
+.car-hero {
+  position: relative;
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+
+.car-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45); 
+  z-index: 0;
+}
+
+.car-hero h1, .car-hero .subtitle {
+  position: relative;
+  z-index: 1;
+  font-family: 'Oswald', sans-serif;
+}
+
+.car-hero h1 {
+  font-size: 3rem;
+  color: #b11226;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+}
+
+.car-hero .subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+
+.car-details {
+  background-color: #1c1c1c; 
+  padding: 4rem 0;
+  border-radius: 12px;
+  margin-bottom: 8rem;
+}
+
+.car-details h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #dc3545; 
+}
+
+.car-details h4 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: #fff;
+}
+
+.car-details p, .car-details li {
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e5e5e5;
+}
+
+.car-details ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.car-details ul li::before {
+  content: "• ";
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.car-details img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.car-details .btn {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  border: 1px solid #dc3545;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.car-details .btn:hover {
+  background-color: #dc3545;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .car-hero h1 {
+    font-size: 2rem;
+  }
+  .car-hero .subtitle {
+    font-size: 1.2rem;
+  }
+  .car-details h3 {
+    font-size: 1.5rem;
+  }
+  .car-details h4 {
+    font-size: 1.2rem;
+  }
+}
+
+.car-bg {
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.car-overlay {
+  background: rgba(0,0,0,0.6);
+  width: 100%;
+  min-height: 100vh;
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
