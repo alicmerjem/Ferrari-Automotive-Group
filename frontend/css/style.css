@@ -118,8 +118,8 @@ body {
 }
 
 .hero-content .btn:hover {
-  background: #c20000;
-  border-color: #c20000;
+  background: #b11226;
+  border-color: #b11226;
   color: white;
 }
 
@@ -178,7 +178,7 @@ body {
     
     .navbar-nav .nav-link:hover {
         background-color: rgba(194, 0, 0, 0.2);
-        color: #c20000 !important;
+        color: #b11226 !important;
     }
     
     .navbar-toggler {
@@ -207,7 +207,7 @@ body {
 }
 
 .navbar .nav-link:hover {
-  color: #c20000; 
+  color: #b11226; 
 }
 
 .navbar .nav-link {
@@ -220,7 +220,7 @@ body {
 }
 
 .navbar .nav-link:hover {
-  color: #c20000; 
+  color: #b11226; 
 }
 
 .featured-cars {
@@ -229,9 +229,9 @@ body {
 
 .featured-cars .section-title {
   font-family: 'Oswald', sans-serif;
+  color: #b11226;
   font-weight: 700;
   font-size: 3rem;
-  color: #ffffff;
 }
 
 .car-card {
@@ -327,16 +327,16 @@ body {
 }
 
 .about-section .btn {
-  border: 1px solid #dc3545;
+  border: 1px solid #b11226;
   color: #dc3545;
   transition: all 0.3s ease;
   font-weight: 600;
   text-transform: uppercase;
-  font-family: Oswald;
+  font-family: 'Oswald', sans-serif;
 }
 
 .about-section .btn:hover {
-  background-color: #dc3545;
+  background-color: #b11226;
   color: #fff;
 }
 
@@ -387,7 +387,7 @@ body {
 }
 
 .contact-form .btn:hover {
-  background-color: #e30613;
+  background-color: #b11226;
   transform: translateY(-2px);
 }
 
@@ -404,7 +404,7 @@ body {
 }
 .about-hero p {
   font-size: 1.2rem;
-  color: #f44336;
+  color: #b11226;
   font-weight: 600;
 }
 
@@ -412,7 +412,7 @@ body {
   background-color: #222;
 }
 .about-mv h2 {
-  color: #f44336;
+  color: #b11226;
   font-family: 'Oswald', sans-serif;
   margin-bottom: 1rem;
 }
@@ -441,7 +441,7 @@ body {
   color: #fff;
 }
 .about-cta h2 {
-  color: #f44336;
+  color: #b11226;
   font-family: 'Oswald', sans-serif;
 }
 .about-cta p {
@@ -509,14 +509,14 @@ body {
 }
 
 .auth-form-container .btn-danger {
-  background-color: #d40000;
+  background-color: #b11226;
   border: none;
   font-weight: bold;
   letter-spacing: 0.5px;
 }
 
 .auth-form-container .btn-danger:hover {
-  background-color: #b00000;
+  background-color: #b11226;
 }
 
 .auth-switch {
@@ -635,7 +635,7 @@ body {
   font-weight: 600;
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #dc3545; 
+  color: #b11226; 
 }
 
 .car-details h4 {
@@ -661,7 +661,7 @@ body {
 
 .car-details ul li::before {
   content: "• ";
-  color: #dc3545;
+  color: #b11226;
   font-weight: bold;
 }
 
@@ -677,13 +677,13 @@ body {
   text-transform: uppercase;
   border-radius: 50px;
   padding: 0.75rem 2rem;
-  border: 1px solid #dc3545;
+  border: 1px solid #b11226;
   color: white;
   transition: all 0.3s ease;
 }
 
 .car-details .btn:hover {
-  background-color: #dc3545;
+  background-color: #b11226;
   color: #fff;
   text-decoration: none;
 }
