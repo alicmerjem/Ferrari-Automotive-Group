@@ -739,3 +739,18 @@ textarea::placeholder {
   padding-bottom: 20px;
 }
 
+.ferrari-footer {
+  background: linear-gradient(to right, #111, #222);
+  border-top: 1px solid #444;
+  font-family: 'Lato', sans-serif;
+}
+
+.footer-logo-img {
+  width: 60px;
+  filter: brightness(1.2);
+}
+
+.ferrari-footer a:hover {
+  color: #b11226; 
+  transition: color 0.3s ease;
+}
