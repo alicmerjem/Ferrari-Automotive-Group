@@ -11,35 +11,32 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md fixed-top bg-dark bg-opacity-50 py-3 px-4">
-  <div class="container-fluid">
-    <div class="d-flex align-items-center">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark py-3 px-4">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <a class="navbar-brand d-flex align-items-center" href="#">
       <img src="assets/icons/Ferrari-Logo.avif" alt="Ferrari Logo" class="logo me-2">
       <span class="brand-name">Ferrari Automotive Group</span>
-    </div>
+    </a>
 
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a href="#home" class="nav-link text-white ms-3">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="#inventory" class="nav-link text-white ms-3">Inventory</a>
-        </li>
-        <li class="nav-item">
-          <a href="#aboutus" class="nav-link text-white ms-3">About</a>
-        </li>
-        <li class="nav-item">
-          <a href="#register" class="nav-link text-white ms-3">Login/Register</a>
-        </li>
+        <li class="nav-item"><a href="#home" class="nav-link text-white ms-3">Home</a></li>
+        <li class="nav-item"><a href="#inventory" class="nav-link text-white ms-3">Inventory</a></li>
+        <li class="nav-item"><a href="#aboutus" class="nav-link text-white ms-3">About</a></li>
+        <li class="nav-item"><a href="#register" class="nav-link text-white ms-3">Login/Register</a></li>
       </ul>
     </div>
+
   </div>
 </nav>
+
+
 
 <main id="spapp" role="main">
     <section id="home" data-load="home.html"></section>
