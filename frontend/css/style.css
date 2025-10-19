@@ -760,3 +760,120 @@ textarea::placeholder {
   color: #b11226; 
   transition: color 0.3s ease;
 }
+
+.service-page {
+  position: relative;
+  background-color: #000;
+  color: #fff;
+}
+
+.service-hero {
+  position: relative;
+  padding: 5rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.service-hero h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3rem;
+  color: #b11226;
+  text-transform: uppercase;
+}
+
+.service-hero p.subtitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+}
+
+.service-details {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.service-form {
+  background: rgba(20, 20, 20, 0.85);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+.service-form h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
+  color: #b11226;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.service-form label {
+  font-family: 'Lato', sans-serif;
+  color: #ccc;
+  font-weight: 400;
+}
+
+.service-form input,
+.service-form select,
+.service-form textarea {
+  background-color: #2e2e2e;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Lato', sans-serif;
+  width: 100%;
+}
+
+.service-form input:focus,
+.service-form select:focus,
+.service-form textarea:focus {
+  border-color: #b11226;
+  box-shadow: 0 0 10px rgba(177, 18, 38, 0.4);
+  outline: none;
+}
+
+.service-form button {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  border: 1px solid #b11226;
+  color: white;
+  background-color: #b11226;
+  transition: all 0.3s ease;
+}
+
+.service-form button:hover {
+  background-color: #fff;
+  color: #b11226;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .service-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .service-hero p.subtitle {
+    font-size: 1rem;
+  }
+
+  .service-form {
+    padding: 2rem 1.5rem;
+  }
+
+  .service-form h3 {
+    font-size: 1.5rem;
+  }
+}
