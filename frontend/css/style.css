@@ -98,7 +98,7 @@ body {
 @media (min-width: 820px) and (max-width: 1180px) and (orientation: landscape),
        (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
   
-  /* Kill video on iPad Air */
+  /* kill video on iPad Air */
   .hero-video {
     display: none !important;
     visibility: hidden !important;
@@ -107,7 +107,7 @@ body {
     left: -9999px !important;
   }
   
-  /* Force image to show */
+  /* forcing the image to show */
   .hero-mobile-img {
     display: block !important;
     visibility: visible !important;
@@ -121,7 +121,7 @@ body {
     z-index: 0 !important;
   }
   
-  /* Remove gap completely */
+  /* removed the weird black gap completely */
   .hero-section {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
@@ -166,7 +166,7 @@ body {
   }
 }
 
-/* ZENBOOK FOLD - EXACT DIMENSIONS */
+/* ZENBOOK FOLD - attempting to fix */
 @media (width: 853px) and (height: 1280px) {
   .hero-video {
     display: none !important;
