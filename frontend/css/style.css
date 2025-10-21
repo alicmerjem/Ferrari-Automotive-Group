@@ -1,0 +1,1069 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1; 
+}
+
+.hero video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.hero-mobile-img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+@media (max-width: 768px) {
+    .hero-video {
+        display: none;
+    }
+    .hero-mobile-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        object-fit: cover;
+    }
+
+  .hero {
+    position: relative;
+    height: 100vh;            
+    display: flex;
+    align-items: center;      
+    justify-content: center;
+    padding-top: 70px;        
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+    .hero-content {
+      position: relative;   
+      top: auto;
+      left: auto;
+      transform: none;
+      margin: 2rem 1rem;    
+      text-align: center;
+      z-index: 2;
+  }
+}
+
+/* All iPads */
+@media (min-width: 768px) and (max-width: 1365px) {
+  .featured-cars .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .car-card .car-img {
+    height: 200px;
+  }
+}
+
+/* iPad Air Specific (820px - 1180px landscape) */
+@media (min-width: 820px) and (max-width: 1180px) and (orientation: landscape),
+       (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  
+  /* kill video on iPad Air */
+  .hero-video {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+  }
+  
+  /* forcing the image to show */
+  .hero-mobile-img {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 0 !important;
+  }
+  
+  /* removed the weird black gap completely */
+  .hero-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    height: 95vh !important;
+  }
+  
+  .featured-cars {
+    margin-top: -10px !important;
+    padding-top: 2rem !important;
+  }
+}
+
+/* iPad Mini & Air - One Line Navbar (768px - 1180px) */
+@media (min-width: 768px) and (max-width: 1180px) {
+  .navbar-nav .nav-link {
+    font-size: 1.1rem !important; 
+    padding: 0.3rem 0.5rem !important; 
+    white-space: nowrap !important;
+  }
+  
+  .navbar .brand-name {
+    font-size: 1.1rem !important; 
+  }
+  
+  .navbar .logo {
+    width: 35px !important; 
+  }
+  
+  .navbar-nav .nav-item {
+    margin: 0 0.2rem !important; 
+  }
+  
+
+  .navbar-collapse {
+    flex-grow: 1 !important;
+    min-width: 0 !important;
+  }
+  
+  .navbar-nav {
+    flex-wrap: nowrap !important; 
+    justify-content: flex-end !important;
+  }
+}
+
+/* ZENBOOK FOLD - attempting to fix */
+@media (width: 853px) and (height: 1280px) {
+  .hero-video {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    z-index: -9999 !important;
+  }
+  
+  .hero-mobile-img {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 0 !important;
+  }
+  
+  .hero-section {
+    height: 50vh !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  .featured-cars {
+    margin-top: -40px !important;
+    padding-top: 1rem !important;
+  }
+}
+
+@media (width: 1024px) and (height: 600px) {
+  .hero-section {
+    height: 70vh !important;
+  }
+  
+  .hero-content {
+    top: 20% !important; 
+    max-width: 80% !important;
+    padding: 1.5rem !important;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .hero-content p {
+    font-size: 1rem !important; 
+    margin-bottom: 0.8rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  
+  .hero-video {
+    display: none !important;
+  }
+  
+  .hero-mobile-img {
+    display: block !important;
+  }
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
+
+.hero-content {
+  position: absolute;
+  top: 35%;
+  left: 6%;
+  z-index: 2;
+  background: rgba(20, 20, 20, 0.55);
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  max-width: 600px;
+  color: white;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+}
+
+.hero-content h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.9rem;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.hero-content p {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  text-align: justify;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #e5e5e5;
+  text-justify: inter-word;
+  margin-bottom: 10;
+}
+
+.hero-content .btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 0;
+  text-align: center;
+  text-decoration: none;
+  backdrop-filter: blur(2px);
+}
+
+.hero-content .btn:hover {
+  background: #b11226;
+  border-color: #b11226;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    top: 25%;
+    left: 5%;
+    max-width: 85%;
+    padding: 1.5rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+.navbar .logo {
+  width: 50px;
+  height: auto;
+  padding-right: 10px;
+}
+
+@media (max-width: 767.98px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(33, 37, 41, 0.98) !important;
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        border-radius: 0 0 8px 8px;
+        z-index: 1000;
+    }
+    
+    .navbar-nav {
+        text-align: center;
+    }
+    
+    .navbar-nav .nav-item {
+        margin: 0.5rem 0;
+    }
+    
+    .navbar-nav .nav-link {
+        font-size: 1.2rem !important;
+        padding: 0.75rem 1rem !important;
+        display: block;
+        margin: 0 !important;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-nav .nav-link:hover {
+        background-color: rgba(194, 0, 0, 0.2);
+        color: #b11226 !important;
+    }
+    
+    .navbar-toggler {
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        margin-left: auto;
+    }
+    
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+}
+
+.navbar {
+    z-index: 1030;
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem !important;
+}
+
+.navbar .brand-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+@media (max-width: 767.98px) {
+  .navbar .brand-name {
+    font-size: 1rem;  
+  }
+}
+
+.navbar .nav-link:hover {
+  color: #b11226; 
+}
+
+.navbar .nav-link {
+  font-family: 'Oswald', sans-serif; 
+  font-size: 1.6rem;               
+  font-weight: 500;                 
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #b11226; 
+}
+
+.featured-cars {
+  position: relative;
+  z-index: 10;
+  padding: 3rem 0;
+  background-color: #1c1c1c;
+}
+
+.featured-cars .section-title {
+  font-family: 'Oswald', sans-serif;
+  color: #b11226;
+  font-size: 3rem;
+}
+
+.car-card {
+  background: #2e2e2e;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.car-card .car-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.car-card .car-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.car-card .car-specs {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.8rem;
+}
+
+.car-card .btn {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+}
+
+.sponsors-section {
+  background-color: #1f1f1f; 
+  color: #fff;
+}
+
+.sponsors-section .section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  color: #b11226;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+
+.sponsor-logo {
+  max-width: 150px;
+  opacity: 0.7;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.sponsor-logo:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.about-section {
+  background-color: #1a1a1a; 
+  color: #b11226;
+  padding: 80px 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.about-section .section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  color: #b11226;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.about-section .about-text {
+  max-width: 800px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: justify;
+  text-align: center;
+}
+
+.about-section .btn {
+  border: 1px solid #b11226;
+  color: #dc3545;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+}
+
+.about-section .btn:hover {
+  background-color: #b11226;
+  color: #fff;
+}
+
+.contact-section {
+  background-color: #1f1f1f;
+  color: #fff;
+  padding: 80px 0;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #ccc !important;
+  opacity: 1 !important;
+}
+
+
+.contact-section .section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  color: #b11226;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.contact-intro {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.contact-form .form-control {
+  background-color: #2e2e2e;
+  border: 1px solid #444;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.contact-form .form-control:focus {
+  border-color: #b11226;
+  box-shadow: 0 0 10px rgba(177, 18, 38, 0.4);
+  outline: none;
+}
+
+.contact-form .btn {
+  background-color: #b11226;
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.contact-form .btn:hover {
+  background-color: #b11226;
+  transform: translateY(-2px);
+}
+
+.about-hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url('../assets/images/showroom.jpg') center/cover no-repeat;
+  height: 70vh;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+}
+.about-hero h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 1px;
+}
+.about-hero p {
+  font-size: 1.2rem;
+  color: #b11226;
+  font-weight: 600;
+}
+
+.about-mv {
+  background-color: #222;
+}
+.about-mv h2 {
+  color: #b11226;
+  font-family: 'Oswald', sans-serif;
+  margin-bottom: 1rem;
+}
+.about-mv p {
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.about-founders {
+  background-color: #1a1a1a;
+}
+.team-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid #f44336;
+  transition: transform 0.3s ease;
+}
+.team-img:hover {
+  transform: scale(1.08);
+}
+
+.about-cta {
+  background-color: #2b2b2b;
+  color: #fff;
+}
+.about-cta h2 {
+  color: #b11226;
+  font-family: 'Oswald', sans-serif;
+}
+.about-cta p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.auth-section {
+  position: relative;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.register-section {
+  background-image: url('../assets/images/background2.jpeg'); 
+}
+
+.login-section {
+  background-image: url('../assets/images/background2.jpeg'); 
+}
+
+.auth-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-form-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-title {
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.auth-form-container .form-control {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+
+.auth-form-container .form-control::placeholder {
+  color: #ddd;
+}
+
+.auth-form-container .btn-danger {
+  background-color: #b11226;
+  border: none;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.auth-form-container .btn-danger:hover {
+  background-color: #b11226;
+}
+
+.auth-switch {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.auth-switch a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+.inventory-section {
+  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+  min-height: 100vh;
+  padding: 80px 0;
+  padding-top: 120;
+}
+
+.inventory-section .section-title {
+  margin-top: 90px;
+  font-family: 'Oswald', sans-serif;
+  color: #b11226;
+}
+
+.car-card {
+  background-color: #111;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.car-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+}
+
+.car-title {
+  color: #b11226;
+  font-weight: bold;
+}
+
+.car-desc {
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .inventory-section {
+    padding-top: 120px;
+  }
+}
+
+
+.car-hero {
+  position: relative;
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+
+.car-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent; 
+  z-index: 0;
+}
+
+.car-hero h1, .car-hero .subtitle {
+  position: relative;
+  z-index: 1;
+  font-family: 'Oswald', sans-serif;
+}
+
+.car-hero h1 {
+  font-size: 3rem;
+  color: #b11226;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+}
+
+.car-hero .subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+
+.car-details {
+  background-color: #1c1c1c; 
+  padding: 4rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 8rem;
+}
+
+@media (max-width: 576px) {
+  .car-details {
+    padding: 2rem 1rem; 
+  }
+}
+
+
+.car-details h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #b11226; 
+}
+
+.car-details h4 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: #fff;
+}
+
+.car-details p, .car-details li {
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e5e5e5;
+}
+
+.car-details ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.car-details ul li::before {
+  content: "• ";
+  color: #b11226;
+  font-weight: bold;
+}
+
+.car-details img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.car-details .btn {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  border: 1px solid #b11226;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.car-details .btn:hover {
+  background-color: #b11226;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .car-hero h1 {
+    font-size: 2rem;
+  }
+  .car-hero .subtitle {
+    font-size: 1.2rem;
+  }
+  .car-details h3 {
+    font-size: 1.5rem;
+  }
+  .car-details h4 {
+    font-size: 1.2rem;
+  }
+}
+
+.car-bg {
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.car-overlay {
+  background: rgba(0,0,0,0.6);
+  width: 100%;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 576px) {
+  .car-overlay {
+    padding: 2rem 1rem;
+  }
+}
+
+.car-page {
+  background: linear-gradient(to bottom, #2b2b2b, #1a1a1a); 
+  min-height: 100vh;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.ferrari-footer {
+  background: linear-gradient(to right, #111, #222);
+  border-top: 1px solid #444;
+  font-family: 'Lato', sans-serif;
+}
+
+.footer-logo-img {
+  width: 60px;
+  filter: brightness(1.2);
+}
+
+.ferrari-footer a:hover {
+  color: #b11226; 
+  transition: color 0.3s ease;
+}
+
+.service-page {
+  position: relative;
+  background-color: #000;
+  color: #fff;
+}
+
+.service-hero {
+  position: relative;
+  padding: 5rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.service-hero h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3rem;
+  color: #b11226;
+  text-transform: uppercase;
+}
+
+.service-hero p.subtitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+}
+
+.service-details {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.service-form {
+  background: rgba(20, 20, 20, 0.85);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+.service-form h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
+  color: #b11226;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.service-form label {
+  font-family: 'Lato', sans-serif;
+  color: #ccc;
+  font-weight: 400;
+}
+
+.service-form input,
+.service-form select,
+.service-form textarea {
+  background-color: #2e2e2e;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Lato', sans-serif;
+  width: 100%;
+}
+
+.service-form input:focus,
+.service-form select:focus,
+.service-form textarea:focus {
+  border-color: #b11226;
+  box-shadow: 0 0 10px rgba(177, 18, 38, 0.4);
+  outline: none;
+}
+
+.service-form button {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  border: 1px solid #b11226;
+  color: white;
+  background-color: #b11226;
+  transition: all 0.3s ease;
+}
+
+.service-form button:hover {
+  background-color: #fff;
+  color: #b11226;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .service-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .service-hero p.subtitle {
+    font-size: 1rem;
+  }
+
+  .service-form {
+    padding: 2rem 1.5rem;
+  }
+
+  .service-form h3 {
+    font-size: 1.5rem;
+  }
+}
