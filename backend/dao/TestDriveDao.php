@@ -3,7 +3,7 @@ require_once 'BaseDao.php';
 
 class TestDriveDao extends BaseDao {
     public function __construct() {
-        parent::__construct("test_drives");
+        parent::__construct("test_drives", "test_drive_id");
     }
 
     // Custom method to get test drives by user

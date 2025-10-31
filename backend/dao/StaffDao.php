@@ -3,7 +3,7 @@ require_once 'BaseDao.php';
 
 class StaffDao extends BaseDao {
     public function __construct() {
-        parent::__construct("staff");
+        parent::__construct("staff", "staff_id");
     }
 
     // Custom method to get staff by position

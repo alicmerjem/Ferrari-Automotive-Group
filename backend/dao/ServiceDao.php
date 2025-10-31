@@ -3,7 +3,7 @@ require_once 'BaseDao.php';
 
 class ServiceDao extends BaseDao {
     public function __construct() {
-        parent::__construct("services");
+        parent::__construct("services", "service_id");
     }
 
     // Custom method to get services by user

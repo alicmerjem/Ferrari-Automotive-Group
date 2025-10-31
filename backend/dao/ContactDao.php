@@ -3,7 +3,7 @@ require_once 'BaseDao.php';
 
 class ContactDao extends BaseDao {
     public function __construct() {
-        parent::__construct("contacts");
+        parent::__construct("contacts", "contact_id");
     }
 
     // Custom method to get contacts by car (if someone inquired about a specific car)
