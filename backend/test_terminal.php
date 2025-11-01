@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/dao/UserDao.php';
-require_once __DIR__ . '/dao/CarDao.php';
-require_once __DIR__ . '/dao/StaffDao.php';
-require_once __DIR__ . '/dao/ContactDao.php';
-require_once __DIR__ . '/dao/ServiceDao.php';
-require_once __DIR__ . '/dao/TestDriveDao.php';
+require_once __DIR__ . '/rest/dao/UserDao.php';
+require_once __DIR__ . '/rest/dao/CarDao.php';
+require_once __DIR__ . '/rest/dao/StaffDao.php';
+require_once __DIR__ . '/rest/dao/ContactDao.php';
+require_once __DIR__ . '/rest/dao/ServiceDao.php';
+require_once __DIR__ . '/rest/dao/TestDriveDao.php';
 
 echo "=== Ferrari Automotive Group - TERMINAL DAO TEST ===\n\n";
 
