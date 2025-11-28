@@ -6,6 +6,8 @@ class Database {
    private static $password = '';
    private static $connection = null;
 
+   private static $jtwSecret = 'Ec2FISbLxDeIe9GrpuhjC03yzPvjRWvM';
+
    public static function connect() {
        if (self::$connection === null) {
            try {
