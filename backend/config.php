@@ -6,7 +6,7 @@ class Database {
    private static $password = '';
    private static $connection = null;
 
-   private static $jtwSecret = 'Ec2FISbLxDeIe9GrpuhjC03yzPvjRWvM';
+   private static $jwtSecret = 'Ec2FISbLxDeIe9GrpuhjC03yzPvjRWvM';
 
    public static function connect() {
        if (self::$connection === null) {
@@ -25,6 +25,10 @@ class Database {
            }
        }
        return self::$connection;
+   }
+
+    public static function JWT_SECRET() {
+       return self::$jwtSecret;
    }
 }
 ?>

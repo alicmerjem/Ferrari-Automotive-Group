@@ -37,7 +37,17 @@ class AuthService extends BaseService {
         unset($data['password']); // Remove plain password
         $data['role'] = 'customer'; // Default role
 
-        $user = parent::create($data);
+        // insert the user, return true or false
+        $result = parent::create($data);
+
+        if (!$result) {
+            throw new Exception('Failed to create user');
+        }
+
+        // fetch the newly created user
+        $user = $this->dao->get_user_by_email($data['email']);
+
+        // remove password hash 
         unset($user['password_hash']);
 
         return $user;             

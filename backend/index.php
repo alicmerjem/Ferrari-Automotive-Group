@@ -43,7 +43,7 @@ Flight::route('/*', function() {
         return TRUE;
     } else {
         try {
-            $token = Flight::request()->getHeader("Authentication");
+            $token = Flight::request()->getHeader("Authorization");
             // Use the middleware instead of direct JWT decoding
             if(Flight::auth_middleware()->verifyToken($token))
                 return TRUE;

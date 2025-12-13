@@ -26,13 +26,12 @@ use Firebase\JWT\Key;
  */
 // Register new user
 Flight::route('POST /auth/register', function(){
-    $data = Flight::request()->data->getData();
-    $response = Flight::auth_service()->register($data);
-    
-    if ($response['success']) {
-        Flight::json($response['data']);
-    } else {
-        Flight::halt(500, $response['error']);
+    try {
+        $data = Flight::request()->data->getData();
+        $result = Flight::auth_service()->register($data);
+        Flight::json($result);
+    } catch (Exception $e) {
+        Flight::halt(500, $e->getMessage());
     }
 });
 
@@ -58,12 +57,11 @@ Flight::route('POST /auth/register', function(){
  */
 // Login user
 Flight::route('POST /auth/login', function(){
-    $data = Flight::request()->data->getData();
-    $response = Flight::auth_service()->login($data);
-    
-    if ($response['success']) {
-        Flight::json($response['data']);
-    } else {
-        Flight::halt(500, $response['error']);
+    try {
+        $data = Flight::request()->data->getData();
+        $result = Flight::auth_service()->login($data);
+        Flight::json($result);
+    } catch (Exception $e) {
+        Flight::halt(500, $e->getMessage());
     }
 });
