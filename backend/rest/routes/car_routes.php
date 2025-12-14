@@ -20,6 +20,7 @@
  */
 // Get a specific car by ID
 Flight::route('GET /cars/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::carService()->getById($id));
 });
@@ -38,6 +39,7 @@ Flight::route('GET /cars/@id', function($id){
  */
 // Get cars with optional filter
 Flight::route('GET /cars', function(){
+    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);    
     Flight::json(Flight::carService()->getAll());
 });
@@ -66,6 +68,7 @@ Flight::route('GET /cars', function(){
  */
 // Add a new car
 Flight::route('POST /cars', function(){
+    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     $data = Flight::request()->data->getData();
     Flight::json(Flight::carService()->create($data));
@@ -101,6 +104,7 @@ Flight::route('POST /cars', function(){
  */
 // Update car by ID
 Flight::route('PUT /cars/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     $data = Flight::request()->data->getData();
     Flight::json(Flight::carService()->update($id, $data));
@@ -137,6 +141,7 @@ Flight::route('PUT /cars/@id', function($id){
  */
 // Partially update car by ID  
 Flight::route('PATCH /cars/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     $data = Flight::request()->data->getData();
     Flight::json(Flight::carService()->update($id, $data));
@@ -163,6 +168,7 @@ Flight::route('PATCH /cars/@id', function($id){
  */
 // Delete car by ID
 Flight::route('DELETE /cars/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     Flight::json(Flight::carService()->delete($id));
 });

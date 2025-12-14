@@ -3,20 +3,19 @@ require_once 'BaseDao.php';
 
 class ContactDao extends BaseDao {
     public function __construct() {
-        parent::__construct("contacts", "contact_id");
+        parent::__construct("contacts"); // default primary key 'id'
     }
 
-    // Custom method to get contacts by car (if someone inquired about a specific car)
+    // Get contacts by car
     public function getByCarId($car_id) {
-        $stmt = $this->connection->prepare("SELECT * FROM contacts WHERE car_id = :car_id");
-        $stmt->bindParam(':car_id', $car_id);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $query = "SELECT * FROM " . $this->table_name . " WHERE car_id = :car_id";
+        return $this->query($query, ['car_id' => $car_id])->fetchAll();
     }
 
-    // Custom method to get recent contacts
+    // Get recent contacts
     public function getRecentContacts($limit = 10) {
-        $stmt = $this->connection->prepare("SELECT * FROM contacts ORDER BY submitted_at DESC LIMIT :limit");
+        $query = "SELECT * FROM " . $this->table_name . " ORDER BY submitted_at DESC LIMIT :limit";
+        $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();

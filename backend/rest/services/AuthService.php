@@ -1,89 +1,76 @@
 <?php
 require_once __DIR__ . '/BaseService.php';
 require_once __DIR__ . '/../dao/AuthDao.php';
+require_once __DIR__ . '/../../data/roles.php';
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 class AuthService extends BaseService {
+    private $auth_dao;
+
     public function __construct() {
-        parent::__construct(new AuthDao());
+        $this->auth_dao = new AuthDao();
+        parent::__construct($this->auth_dao);
     }
 
-    // Custom method for authentication
+    // Get user by email
     public function get_user_by_email($email){
-        return $this->dao->get_user_by_email($email);
+        return $this->auth_dao->get_user_by_email($email);
     }
 
-    // Business logic: User registration
+    // Register new user
     public function register($data) {
-        // Validation: Required fields
         if (empty($data['email']) || empty($data['password']) || empty($data['first_name']) || empty($data['last_name'])) {
-            throw new Exception('Email, password, first name, and last name are required.');
+            return ['success' => false, 'error' => 'Email, password, first name, and last name are required.'];
         }
 
-        // Validation: Email format
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new Exception('Invalid email format.');
+            return ['success' => false, 'error' => 'Invalid email format.'];
         }
 
-        // Validation: Check if email exists
-        $email_exists = $this->dao->get_user_by_email($data['email']);
+        $email_exists = $this->auth_dao->get_user_by_email($data['email']);
         if($email_exists){
-            throw new Exception('Email already registered.');
+            return ['success' => false, 'error' => 'Email already registered.'];
         }
 
-        // Hash password and set default role
         $data['password_hash'] = password_hash($data['password'], PASSWORD_BCRYPT);
         unset($data['password']); // Remove plain password
-        $data['role'] = 'customer'; // Default role
+        $data['role'] = 'user'; // Default role
 
-        // insert the user, return true or false
-        $result = parent::create($data);
-
-        if (!$result) {
-            throw new Exception('Failed to create user');
+        $user_created = parent::create($data);
+        if (!$user_created) {
+            return ['success' => false, 'error' => 'Failed to create user.'];
         }
 
-        // fetch the newly created user
-        $user = $this->dao->get_user_by_email($data['email']);
-
-        // remove password hash 
+        $user = $this->auth_dao->get_user_by_email($data['email']);
         unset($user['password_hash']);
 
-        return $user;             
+        return ['success' => true, 'data' => $user];
     }
 
-    // Business logic: User login
+    // User login
     public function login($data) {
-        // Validation: Required fields
         if (empty($data['email']) || empty($data['password'])) {
-            throw new Exception('Email and password are required.');
+            return ['success' => false, 'error' => 'Email and password are required.'];
         }
 
-        $user = $this->dao->get_user_by_email($data['email']);
-        if(!$user){
-            throw new Exception('Invalid username or password.');
-        }
-
-        if(!password_verify($data['password'], $user['password_hash'])) {
-            throw new Exception('Invalid username or password.');
+        $user = $this->auth_dao->get_user_by_email($data['email']);
+        if(!$user || !password_verify($data['password'], $user['password_hash'])) {
+            return ['success' => false, 'error' => 'Invalid username or password.'];
         }
 
         unset($user['password_hash']);
-      
-        // Generate JWT token
+
         $jwt_payload = [
             'user' => $user,
             'iat' => time(),
-            'exp' => time() + (60 * 60 * 24) // valid for day
+            'exp' => time() + (60 * 60 * 24) // 1 day expiration
         ];
 
-        $token = JWT::encode(
-            $jwt_payload,
-            Database::JWT_SECRET(),
-            'HS256'
-        );
+        $token = JWT::encode($jwt_payload, Config::JWT_SECRET(), 'HS256');
 
-        return array_merge($user, ['token' => $token]);             
+        return ['success' => true, 'data' => array_merge($user, ['token' => $token])];
     }
 }
+?>

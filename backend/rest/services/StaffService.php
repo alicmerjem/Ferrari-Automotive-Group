@@ -7,6 +7,7 @@ class StaffService extends BaseService {
         parent::__construct(new StaffDao());
     }
 
+    // Business logic: Get staff members by position
     public function getByPosition($position) {
         return $this->dao->getByPosition($position);
     }

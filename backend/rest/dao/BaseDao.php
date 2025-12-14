@@ -2,24 +2,22 @@
 require_once __DIR__ . '/../../config.php';
 
 class BaseDao {
-    protected $table;
-    protected $primary_key;
+    protected $table_name;
     protected $connection;
 
-    public function __construct($table, $primary_key = "id") {
-        $this->table = $table;
-        $this->primary_key = $primary_key;
+    public function __construct($table_name) {
+        $this->table_name = $table_name;
         $this->connection = Database::connect();
     }
 
     public function getAll() {
-        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table);
+        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table_name);
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
     public function getById($id) {
-        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table . " WHERE " . $this->primary_key . " = :id");
+        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table_name . " WHERE id = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch();
@@ -28,7 +26,7 @@ class BaseDao {
     public function insert($data) {
         $columns = implode(", ", array_keys($data));
         $placeholders = ":" . implode(", :", array_keys($data));
-        $sql = "INSERT INTO " . $this->table . " ($columns) VALUES ($placeholders)";
+        $sql = "INSERT INTO " . $this->table_name . " ($columns) VALUES ($placeholders)";
         $stmt = $this->connection->prepare($sql);
         return $stmt->execute($data);
     }
@@ -39,16 +37,38 @@ class BaseDao {
             $fields .= "$key = :$key, ";
         }
         $fields = rtrim($fields, ", ");
-        $sql = "UPDATE " . $this->table . " SET $fields WHERE " . $this->primary_key . " = :id";
+        $sql = "UPDATE " . $this->table_name . " SET $fields WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
         $data['id'] = $id;
         return $stmt->execute($data);
     }
 
     public function delete($id) {
-        $stmt = $this->connection->prepare("DELETE FROM " . $this->table . " WHERE " . $this->primary_key . " = :id");
+        $stmt = $this->connection->prepare("DELETE FROM " . $this->table_name . " WHERE id = :id");
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
+    }
+
+    // Helper methods for custom queries
+    protected function query($query, $params = []) {
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute($params);
+        return $stmt;
+    }
+
+    protected function query_unique($query, $params = []) {
+        $stmt = $this->query($query, $params);
+        return $stmt->fetch();
+    }
+
+    public function add($entity) {
+        $columns = implode(", ", array_keys($entity));
+        $placeholders = ":" . implode(", :", array_keys($entity));
+        $sql = "INSERT INTO " . $this->table_name . " ($columns) VALUES ($placeholders)";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($entity);
+        $entity['id'] = $this->connection->lastInsertId();
+        return $entity;
     }
 }
 ?>

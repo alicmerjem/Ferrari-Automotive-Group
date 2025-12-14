@@ -3,44 +3,39 @@ require_once 'BaseDao.php';
 
 class UserDao extends BaseDao {
     public function __construct() {
-        parent::__construct("users", "user_id");
+        parent::__construct("users"); // removed custom primary key, like their style
     }
 
-    // Custom method to get user by email (for login)
+    // Get user by email
     public function getByEmail($email) {
-        $stmt = $this->connection->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        return $stmt->fetch();
+        $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email";
+        return $this->query_unique($query, ['email' => $email]);
     }
 
-    // Custom method to check if email already exists (for registration)
+    // Check if email exists
     public function emailExists($email) {
-        $stmt = $this->connection->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        return $stmt->fetchColumn() > 0;
+        $query = "SELECT COUNT(*) as count FROM " . $this->table_name . " WHERE email = :email";
+        $result = $this->query_unique($query, ['email' => $email]);
+        return $result['count'] > 0;
     }
 
+    // Get users by role
     public function getByRole($role) {
-        $stmt = $this->connection->prepare("SELECT * FROM users WHERE role = :role");
-        $stmt->bindParam(':role', $role);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $query = "SELECT * FROM " . $this->table_name . " WHERE role = :role";
+        return $this->query($query, ['role' => $role])->fetchAll();
     }
-    
+
+    // Promote a user to admin
     public function promoteToAdmin($user_id) {
-        $stmt = $this->connection->prepare("UPDATE users SET role = 'admin' WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $user_id);
-        return $stmt->execute();
-    }  
-    
+        $query = "UPDATE " . $this->table_name . " SET role = 'admin' WHERE id = :id";
+        return $this->query($query, ['id' => $user_id])->rowCount() > 0;
+    }
+
+    // Check if a user is admin
     public function isAdmin($user_id) {
-        $stmt = $this->connection->prepare("SELECT role FROM users WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->execute();
-        $user = $stmt->fetch();
+        $query = "SELECT role FROM " . $this->table_name . " WHERE id = :id";
+        $user = $this->query_unique($query, ['id' => $user_id]);
         return $user && $user['role'] === 'admin';
-    }    
+    }
 }
 ?>

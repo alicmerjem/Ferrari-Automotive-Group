@@ -3,31 +3,26 @@ require_once 'BaseDao.php';
 
 class CarDao extends BaseDao {
     public function __construct() {
-        parent::__construct("cars", "car_id");
+        parent::__construct("cars"); // using their single-table approach
     }
 
-    // Custom method to get available cars only
+    // Get all available cars
     public function getAvailableCars() {
-        $stmt = $this->connection->prepare("SELECT * FROM cars WHERE status = 'available'");
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $query = "SELECT * FROM " . $this->table_name . " WHERE status = 'available'";
+        return $this->query($query)->fetchAll();
     }
 
-    // Custom method to get cars by category
+    // Get cars by category
     public function getCarsByCategory($category) {
-        $stmt = $this->connection->prepare("SELECT * FROM cars WHERE category = :category AND status = 'available'");
-        $stmt->bindParam(':category', $category);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $query = "SELECT * FROM " . $this->table_name . " WHERE category = :category AND status = 'available'";
+        return $this->query($query, ['category' => $category])->fetchAll();
     }
 
-    // Custom method to search cars by model
+    // Search cars by model
     public function searchCarsByModel($searchTerm) {
-        $stmt = $this->connection->prepare("SELECT * FROM cars WHERE model LIKE :search AND status = 'available'");
+        $query = "SELECT * FROM " . $this->table_name . " WHERE model LIKE :search AND status = 'available'";
         $searchTerm = "%" . $searchTerm . "%";
-        $stmt->bindParam(':search', $searchTerm);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        return $this->query($query, ['search' => $searchTerm])->fetchAll();
     }
 }
 ?>
