@@ -20,6 +20,8 @@
  */
 // Get contact by ID
 Flight::route('GET /contacts/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     Flight::json(Flight::contactService()->getById($id));
 });
 
@@ -37,6 +39,8 @@ Flight::route('GET /contacts/@id', function($id){
  */
 // Get all contacts
 Flight::route('GET /contacts', function(){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::contactService()->getAll());
 });
 
@@ -64,6 +68,7 @@ Flight::route('GET /contacts', function(){
  */
 // Add new contact
 Flight::route('POST /contacts', function(){
+    Flight::auth_middleware()->verifyToken();
     $data = Flight::request()->data->getData();
     Flight::json(Flight::contactService()->create($data));
 });
@@ -98,6 +103,8 @@ Flight::route('POST /contacts', function(){
  */
 // Update contact
 Flight::route('PUT /contacts/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::contactService()->update($id, $data));
 });
@@ -123,6 +130,8 @@ Flight::route('PUT /contacts/@id', function($id){
  */
 // Delete contact
 Flight::route('DELETE /contacts/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::contactService()->delete($id));
 });
 ?>

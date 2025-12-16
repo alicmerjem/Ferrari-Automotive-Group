@@ -7,12 +7,12 @@ class ContactService extends BaseService {
         parent::__construct(new ContactDao());
     }
 
+    // Business logic: Validate contact message
     public function create($data) {
-        // Validate required fields
         if (empty($data['message'])) {
             throw new Exception('Message cannot be empty');
         }
-        
+
         return parent::create($data);
     }
 }

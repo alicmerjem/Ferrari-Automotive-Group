@@ -7,6 +7,7 @@ class ServiceService extends BaseService {
         parent::__construct(new ServiceDao());
     }
 
+    // Business logic: Get services by status
     public function getByStatus($status) {
         return $this->dao->getByStatus($status);
     }

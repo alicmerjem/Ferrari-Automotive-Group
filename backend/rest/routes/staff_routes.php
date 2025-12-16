@@ -20,6 +20,8 @@
  */
 // Get staff by ID
 Flight::route('GET /staff/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::staffService()->getById($id));
 });
 
@@ -37,6 +39,8 @@ Flight::route('GET /staff/@id', function($id){
  */
 // Get all staff
 Flight::route('GET /staff', function(){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::staffService()->getAll());
 });
 
@@ -64,6 +68,8 @@ Flight::route('GET /staff', function(){
  */
 // Add new staff
 Flight::route('POST /staff', function(){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::staffService()->create($data));
 });
@@ -98,6 +104,8 @@ Flight::route('POST /staff', function(){
  */
 // Update staff
 Flight::route('PUT /staff/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::staffService()->update($id, $data));
 });
@@ -123,6 +131,8 @@ Flight::route('PUT /staff/@id', function($id){
  */
 // Delete staff
 Flight::route('DELETE /staff/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::staffService()->delete($id));
 });
 ?>

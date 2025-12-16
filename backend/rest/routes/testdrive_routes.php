@@ -20,6 +20,8 @@
  */
 // Get testdrive by ID
 Flight::route('GET /testdrives/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::testdriveService()->getById($id));
 });
 
@@ -37,6 +39,8 @@ Flight::route('GET /testdrives/@id', function($id){
  */
 // Get all testdrives
 Flight::route('GET /testdrives', function(){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::testdriveService()->getAll());
 });
 
@@ -64,6 +68,8 @@ Flight::route('GET /testdrives', function(){
  */
 // Add new testdrive
 Flight::route('POST /testdrives', function(){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::testdriveService()->create($data));
 });
@@ -98,6 +104,8 @@ Flight::route('POST /testdrives', function(){
  */
 // Update testdrive
 Flight::route('PUT /testdrives/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::testdriveService()->update($id, $data));
 });
@@ -123,6 +131,8 @@ Flight::route('PUT /testdrives/@id', function($id){
  */
 // Delete testdrive
 Flight::route('DELETE /testdrives/@id', function($id){
+    Flight::auth_middleware()->verifyToken();
+    Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::testdriveService()->delete($id));
 });
 ?>

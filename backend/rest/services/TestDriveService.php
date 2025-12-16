@@ -7,6 +7,7 @@ class TestDriveService extends BaseService {
         parent::__construct(new TestDriveDao());
     }
 
+    // Business logic: Get test drives by status
     public function getByStatus($status) {
         return $this->dao->getByStatus($status);
     }

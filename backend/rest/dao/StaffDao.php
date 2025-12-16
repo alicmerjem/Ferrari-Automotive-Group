@@ -3,24 +3,20 @@ require_once 'BaseDao.php';
 
 class StaffDao extends BaseDao {
     public function __construct() {
-        parent::__construct("staff", "staff_id");
+        parent::__construct("staff"); // using default primary key 'id' like their style
     }
 
-    // Custom method to get staff by position
+    // Get staff by position
     public function getByPosition($position) {
-        $stmt = $this->connection->prepare("SELECT * FROM staff WHERE position = :position");
-        $stmt->bindParam(':position', $position);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $query = "SELECT * FROM " . $this->table_name . " WHERE position = :position";
+        return $this->query($query, ['position' => $position])->fetchAll();
     }
 
-    // Custom method to search staff by name
+    // Search staff by first or last name
     public function searchByName($name) {
-        $stmt = $this->connection->prepare("SELECT * FROM staff WHERE first_name LIKE :name OR last_name LIKE :name");
+        $query = "SELECT * FROM " . $this->table_name . " WHERE first_name LIKE :name OR last_name LIKE :name";
         $searchName = "%" . $name . "%";
-        $stmt->bindParam(':name', $searchName);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        return $this->query($query, ['name' => $searchName])->fetchAll();
     }
 }
 ?>
