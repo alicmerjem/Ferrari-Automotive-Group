@@ -57,8 +57,7 @@ Flight::route('GET /testdrives', function(){
  *             required={"user_id", "car_id", "scheduled_date"},
  *             @OA\Property(property="user_id", type="integer", example=1),
  *             @OA\Property(property="car_id", type="integer", example=3),
- *             @OA\Property(property="scheduled_date", type="string", format="date-time", example="2025-11-20T14:30:00"),
- *             @OA\Property(property="notes", type="string", example="Customer prefers morning slots")
+ *             @OA\Property(property="scheduled_date", type="string", format="date-time", example="2025-11-20T14:30:00")
  *         )
  *     ),
  *     @OA\Response(
@@ -93,8 +92,7 @@ Flight::route('POST /testdrives', function(){
  *         @OA\JsonContent(
  *             @OA\Property(property="user_id", type="integer", example=1),
  *             @OA\Property(property="car_id", type="integer", example=3),
- *             @OA\Property(property="scheduled_date", type="string", format="date-time", example="2025-11-21T10:00:00"),
- *             @OA\Property(property="notes", type="string", example="Rescheduled to morning")
+ *             @OA\Property(property="scheduled_date", type="string", format="date-time", example="2025-11-21T10:00:00")
  *         )
  *     ),
  *     @OA\Response(

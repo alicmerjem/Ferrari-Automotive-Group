@@ -54,10 +54,11 @@ Flight::route('GET /users', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"name", "email", "password"},
- *             @OA\Property(property="name", type="string", example="John Doe"),
+ *             required={"first_name", "last_name", "email", "password"},
+ *             @OA\Property(property="first_name", type="string", example="John"),
+ *             @OA\Property(property="last_name", type="string", example="Doe"),
  *             @OA\Property(property="email", type="string", example="john@example.com"),
- *             @OA\Property(property="password", type="string", example="securepassword123")
+ *             @OA\Property(property="password_hash", type="string", example="securepassword123")
  *         )
  *     ),
  *     @OA\Response(
@@ -90,9 +91,10 @@ Flight::route('POST /users', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Name"),
+ *             @OA\Property(property="first_name", type="string", example="Updated"),
+ *             @OA\Property(property="last_name", type="string", example="Name"),
  *             @OA\Property(property="email", type="string", example="updated@example.com"),
- *             @OA\Property(property="password", type="string", example="newsecurepassword")
+ *             @OA\Property(property="password_hash", type="string", example="newsecurepassword")
  *         )
  *     ),
  *     @OA\Response(

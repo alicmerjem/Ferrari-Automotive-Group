@@ -54,8 +54,7 @@ Flight::route('GET /cars', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"brand", "model", "year", "price"},
- *             @OA\Property(property="brand", type="string", example="Ferrari"),
+ *             required={"model", "year", "price"},
  *             @OA\Property(property="model", type="string", example="F8 Tributo"),
  *             @OA\Property(property="year", type="integer", example=2021),
  *             @OA\Property(property="price", type="number", example=250000)
@@ -91,7 +90,6 @@ Flight::route('POST /cars', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="brand", type="string", example="Updated Brand"),
  *             @OA\Property(property="model", type="string", example="Updated Model"),
  *             @OA\Property(property="year", type="integer", example=2023),
  *             @OA\Property(property="price", type="number", example=300000)
@@ -128,7 +126,6 @@ Flight::route('PUT /cars/@id', function($id){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="brand", type="string", example="Partial Brand Update"),
  *             @OA\Property(property="model", type="string", example="Partial Model Update"),
  *             @OA\Property(property="year", type="integer", example=2022),
  *             @OA\Property(property="price", type="number", example=275000)

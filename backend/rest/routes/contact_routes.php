@@ -55,7 +55,8 @@ Flight::route('GET /contacts', function(){
  *         required=true,
  *         @OA\JsonContent(
  *             required={"name", "email", "phone"},
- *             @OA\Property(property="name", type="string", example="John Doe"),
+ *             @OA\Property(property="first_name", type="string", example="John"),
+ *             @OA\Property(property="last_name", type="string", example="Doe"),
  *             @OA\Property(property="email", type="string", example="john@example.com"),
  *             @OA\Property(property="phone", type="string", example="+1234567890"),
  *             @OA\Property(property="message", type="string", example="I am interested in your services")
@@ -90,7 +91,8 @@ Flight::route('POST /contacts', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Name"),
+ *             @OA\Property(property="first_name", type="string", example="Updated"),
+ *             @OA\Property(property="last_name", type="string", example="Name"),
  *             @OA\Property(property="email", type="string", example="updated@example.com"),
  *             @OA\Property(property="phone", type="string", example="+9876543210"),
  *             @OA\Property(property="message", type="string", example="Updated message content")

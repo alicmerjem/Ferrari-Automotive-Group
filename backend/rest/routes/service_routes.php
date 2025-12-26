@@ -54,10 +54,10 @@ Flight::route('GET /services', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"name", "description", "price"},
- *             @OA\Property(property="name", type="string", example="Oil Change"),
- *             @OA\Property(property="description", type="string", example="Full synthetic oil change"),
- *             @OA\Property(property="price", type="number", example=100)
+ *             required={"car_id" ,"service_type", "notes"},
+ *             @OA\Property(property="car_id", type="integer", example=2),
+ *             @OA\Property(property="service_type", type="string", example="Oil Change"),
+ *             @OA\Property(property="notes", type="string", example="Full synthetic oil change")
  *         )
  *     ),
  *     @OA\Response(
@@ -70,6 +70,8 @@ Flight::route('GET /services', function(){
 Flight::route('POST /services', function(){
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
+    $user = Flight::get('user');
+    $data['user_id'] = $user->user_id;
     Flight::json(Flight::serviceService()->create($data));
 });
 
@@ -90,9 +92,8 @@ Flight::route('POST /services', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Service Name"),
- *             @OA\Property(property="description", type="string", example="Updated description"),
- *             @OA\Property(property="price", type="number", example=120)
+ *             @OA\Property(property="service_type", type="string", example="Updated Service Name"),
+ *             @OA\Property(property="notes", type="string", example="Updated description")
  *         )
  *     ),
  *     @OA\Response(

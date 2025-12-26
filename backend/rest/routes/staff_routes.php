@@ -54,9 +54,10 @@ Flight::route('GET /staff', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"name", "role", "email"},
- *             @OA\Property(property="name", type="string", example="Jane Doe"),
- *             @OA\Property(property="role", type="string", example="Mechanic"),
+ *             required={"first_name", "last_name", "role", "email"},
+ *             @OA\Property(property="first_name", type="string", example="Jane"),
+ *             @OA\Property(property="last_name", type="string", examples="Doe"),
+ *             @OA\Property(property="position", type="string", example="Mechanic"),
  *             @OA\Property(property="email", type="string", example="jane@example.com"),
  *             @OA\Property(property="phone", type="string", example="+1234567890")
  *         )
@@ -91,8 +92,9 @@ Flight::route('POST /staff', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Name"),
- *             @OA\Property(property="role", type="string", example="Updated Role"),
+ *             @OA\Property(property="first_name", type="string", example="New"),
+ *             @OA\Property(property="last_name", type="string", example="Name"),
+ *             @OA\Property(property="position", type="string", example="Updated Role"),
  *             @OA\Property(property="email", type="string", example="updated@example.com"),
  *             @OA\Property(property="phone", type="string", example="+9876543210")
  *         )
