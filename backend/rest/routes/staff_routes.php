@@ -56,7 +56,7 @@ Flight::route('GET /staff', function(){
  *         @OA\JsonContent(
  *             required={"first_name", "last_name", "role", "email"},
  *             @OA\Property(property="first_name", type="string", example="Jane"),
- *             @OA\Property(property="last_name", type="string", examples="Doe"),
+ *             @OA\Property(property="last_name", type="string", example="Doe"),
  *             @OA\Property(property="position", type="string", example="Mechanic"),
  *             @OA\Property(property="email", type="string", example="jane@example.com"),
  *             @OA\Property(property="phone", type="string", example="+1234567890")
