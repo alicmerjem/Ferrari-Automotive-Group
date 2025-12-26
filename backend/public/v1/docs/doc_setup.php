@@ -21,10 +21,11 @@
 */
 /**
 * @OA\SecurityScheme(
-*     securityScheme="ApiKey",
-*     type="apiKey",
-*     in="header",
-*     name="Authentication"
+*     securityScheme="bearerAuth",
+*     type="http",
+*     scheme="bearer",
+*     bearerFormat="JWT",
+*     description="Enter JWT Bearer token"
 * )
 */
 ?>

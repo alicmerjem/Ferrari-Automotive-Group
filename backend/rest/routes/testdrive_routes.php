@@ -5,6 +5,7 @@
  *     tags={"testdrives"},
  *     summary="Get a test drive by ID",
  *     description="Returns a single test drive matching the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -20,7 +21,6 @@
  */
 // Get testdrive by ID
 Flight::route('GET /testdrives/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::testdriveService()->getById($id));
 });
@@ -31,6 +31,7 @@ Flight::route('GET /testdrives/@id', function($id){
  *     tags={"testdrives"},
  *     summary="Get all test drives",
  *     description="Returns a list of all test drives in the database.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="List of test drives returned successfully"
@@ -39,7 +40,6 @@ Flight::route('GET /testdrives/@id', function($id){
  */
 // Get all testdrives
 Flight::route('GET /testdrives', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::testdriveService()->getAll());
 });
@@ -50,6 +50,7 @@ Flight::route('GET /testdrives', function(){
  *     tags={"testdrives"},
  *     summary="Create a new test drive",
  *     description="Adds a new test drive to the system.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -68,7 +69,6 @@ Flight::route('GET /testdrives', function(){
  */
 // Add new testdrive
 Flight::route('POST /testdrives', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::testdriveService()->create($data));
@@ -80,6 +80,7 @@ Flight::route('POST /testdrives', function(){
  *     tags={"testdrives"},
  *     summary="Update a test drive",
  *     description="Updates an existing test drive's information.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -104,7 +105,6 @@ Flight::route('POST /testdrives', function(){
  */
 // Update testdrive
 Flight::route('PUT /testdrives/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::testdriveService()->update($id, $data));
@@ -116,6 +116,7 @@ Flight::route('PUT /testdrives/@id', function($id){
  *     tags={"testdrives"},
  *     summary="Delete a test drive",
  *     description="Deletes a test drive with the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -131,7 +132,6 @@ Flight::route('PUT /testdrives/@id', function($id){
  */
 // Delete testdrive
 Flight::route('DELETE /testdrives/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::testdriveService()->delete($id));
 });

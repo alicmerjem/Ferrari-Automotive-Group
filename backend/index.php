@@ -33,20 +33,28 @@ Flight::before('start', function (&$params, &$output) {
 
     // Public routes
     if (
-        str_starts_with($url, '/auth/login') ||
-        str_starts_with($url, '/auth/register')
+        strpos($url, '/auth/login') !== false ||
+        strpos($url, '/auth/register') !== false
     ) {
         return TRUE;
     }
 
     $authHeader = Flight::request()->getHeader("Authorization");
 
-    if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-        Flight::halt(401, "Missing or invalid Authorization header");
+    if (!$authHeader) {
+        Flight::halt(401, "Missing Authorization header");
     }
 
-    $token = $matches[1];
-    Flight::auth_middleware()->verifyToken($token); // Token passed here
+    // Extract token and clean it thoroughly
+    if (strpos($authHeader, 'Bearer ') === 0) {
+        $token = substr($authHeader, 7);
+        // Remove ALL whitespace and control characters
+        $token = preg_replace('/[\s\x00-\x1F\x7F]/', '', $token);
+    } else {
+        Flight::halt(401, "Invalid Authorization header format");
+    }
+
+    Flight::auth_middleware()->verifyToken($token);
 });
 
 // Include routes

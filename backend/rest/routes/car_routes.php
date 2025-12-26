@@ -5,6 +5,7 @@
  *     tags={"cars"},
  *     summary="Get a car by ID",
  *     description="Returns a single car matching the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -20,7 +21,6 @@
  */
 // Get a specific car by ID
 Flight::route('GET /cars/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::carService()->getById($id));
 });
@@ -31,6 +31,7 @@ Flight::route('GET /cars/@id', function($id){
  *     tags={"cars"},
  *     summary="Get all cars",
  *     description="Returns a list of all cars in the database.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="List of cars returned successfully"
@@ -39,7 +40,6 @@ Flight::route('GET /cars/@id', function($id){
  */
 // Get cars with optional filter
 Flight::route('GET /cars', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);    
     Flight::json(Flight::carService()->getAll());
 });
@@ -50,6 +50,7 @@ Flight::route('GET /cars', function(){
  *     tags={"cars"},
  *     summary="Create a new car",
  *     description="Adds a new car to the system.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -68,7 +69,6 @@ Flight::route('GET /cars', function(){
  */
 // Add a new car
 Flight::route('POST /cars', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     $data = Flight::request()->data->getData();
     Flight::json(Flight::carService()->create($data));
@@ -80,6 +80,7 @@ Flight::route('POST /cars', function(){
  *     tags={"cars"},
  *     summary="Update a car",
  *     description="Updates an existing car's information.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -104,7 +105,6 @@ Flight::route('POST /cars', function(){
  */
 // Update car by ID
 Flight::route('PUT /cars/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     $data = Flight::request()->data->getData();
     Flight::json(Flight::carService()->update($id, $data));
@@ -117,6 +117,7 @@ Flight::route('PUT /cars/@id', function($id){
  *     tags={"cars"},
  *     summary="Partially update a car",
  *     description="Updates only the provided fields of the car.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -141,7 +142,6 @@ Flight::route('PUT /cars/@id', function($id){
  */
 // Partially update car by ID  
 Flight::route('PATCH /cars/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     $data = Flight::request()->data->getData();
     Flight::json(Flight::carService()->update($id, $data));
@@ -153,6 +153,7 @@ Flight::route('PATCH /cars/@id', function($id){
  *     tags={"cars"},
  *     summary="Delete a car",
  *     description="Deletes a car with the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -168,7 +169,6 @@ Flight::route('PATCH /cars/@id', function($id){
  */
 // Delete car by ID
 Flight::route('DELETE /cars/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     Flight::json(Flight::carService()->delete($id));
 });

@@ -5,6 +5,7 @@
  *     tags={"staff"},
  *     summary="Get a staff member by ID",
  *     description="Returns a single staff member matching the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -20,7 +21,6 @@
  */
 // Get staff by ID
 Flight::route('GET /staff/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::staffService()->getById($id));
 });
@@ -31,6 +31,7 @@ Flight::route('GET /staff/@id', function($id){
  *     tags={"staff"},
  *     summary="Get all staff members",
  *     description="Returns a list of all staff members in the database.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="List of staff members returned successfully"
@@ -39,7 +40,6 @@ Flight::route('GET /staff/@id', function($id){
  */
 // Get all staff
 Flight::route('GET /staff', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::staffService()->getAll());
 });
@@ -50,6 +50,7 @@ Flight::route('GET /staff', function(){
  *     tags={"staff"},
  *     summary="Create a new staff member",
  *     description="Adds a new staff member to the system.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -68,7 +69,6 @@ Flight::route('GET /staff', function(){
  */
 // Add new staff
 Flight::route('POST /staff', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::staffService()->create($data));
@@ -80,6 +80,7 @@ Flight::route('POST /staff', function(){
  *     tags={"staff"},
  *     summary="Update a staff member",
  *     description="Updates an existing staff member's information.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -104,7 +105,6 @@ Flight::route('POST /staff', function(){
  */
 // Update staff
 Flight::route('PUT /staff/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::staffService()->update($id, $data));
@@ -116,6 +116,7 @@ Flight::route('PUT /staff/@id', function($id){
  *     tags={"staff"},
  *     summary="Delete a staff member",
  *     description="Deletes a staff member with the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -131,7 +132,6 @@ Flight::route('PUT /staff/@id', function($id){
  */
 // Delete staff
 Flight::route('DELETE /staff/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::staffService()->delete($id));
 });
