@@ -22,6 +22,14 @@ $(function() {
         load: "car_details.html"
     });
 
+    app.route({
+    view: "profile",
+    load: "profile.html",
+    onReady: function() {
+        UserService.loadProfile();
+    }
+});
+
     app.run();
 
     // Global listeners

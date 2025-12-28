@@ -1,0 +1,67 @@
+<div class="d-flex flex-column min-vh-100" style="background-color: #000;">
+    
+    <div class="flex-grow-1" style="padding-top: 140px">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    
+                    <div class="car-card p-4 rounded-4 shadow-lg text-white mb-4 position-relative" 
+                         style="border: 1px solid rgba(255,255,255,0.1); background-color: #111; min-height: 280px;">
+                        <div class="d-flex align-items-center flex-wrap">
+                            <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center shadow-lg" 
+                                 style="width: 80px; height: 80px; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.2);">
+                                <span class="h2 mb-0 fw-bold" id="user-initials" style="font-family: 'Oswald', sans-serif;">U</span>
+                            </div>
+                            <div class="ms-md-4 mt-3 mt-md-0">
+                                <h1 class="h3 fw-bold mb-1" id="profile-full-name" style="font-family: 'Oswald', sans-serif; letter-spacing: 1px;">Loading...</h1>
+                                <span class="badge bg-danger text-uppercase px-3" id="profile-role" style="font-size: 0.7rem; letter-spacing: 1px;">Ferrari Member</span>
+                            </div>
+                        </div>
+                        
+                        <div class="row g-4 mt-2">
+                            <div class="col-md-6">
+                                <small class="text-secondary text-uppercase fw-bold" style="font-size: 0.75rem;">Email Address</small>
+                                <p class="fs-6 mt-1" id="profile-email" style="font-family: 'Lato', sans-serif;">---</p>
+                            </div>
+                            <div class="col-md-6">
+                                <small class="text-secondary text-uppercase fw-bold" style="font-size: 0.75rem;">Membership Status</small>
+                                <p class="fs-6 mt-1 text-success"><i class="fas fa-check-circle me-2"></i>Active</p>
+                            </div>
+                        </div>
+
+                        <!-- Logout button positioned at bottom -->
+                        <div class="position-absolute bottom-0 start-0 end-0 p-4 border-top border-secondary" 
+                             style="border-color: rgba(255,255,255,0.1) !important;">
+                            <button class="btn btn-outline-danger rounded-pill w-100 py-2 fw-bold" 
+                                    onclick="UserService.logout()"
+                                    style="font-size: 1rem; letter-spacing: 0.5px;">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="car-card p-4 h-100 rounded-4 shadow-lg text-white" style="border: 1px solid rgba(255,255,255,0.1); background-color: #111;">
+                                <h4 class="fw-bold mb-3" style="font-family: 'Oswald', sans-serif; color: #b11226; letter-spacing: 1px;">EXCLUSIVE ACCESS</h4>
+                                <ul class="list-unstyled text-secondary" style="font-family: 'Lato', sans-serif; font-size: 0.9rem;">
+                                    <li class="mb-2"><i class="fas fa-check text-danger me-2"></i> Priority Service Scheduling</li>
+                                    <li class="mb-2"><i class="fas fa-check text-danger me-2"></i> Early Inventory Alerts</li>
+                                    <li><i class="fas fa-check text-danger me-2"></i> Track Day Invitations</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="car-card p-4 h-100 rounded-4 shadow-lg text-white d-flex flex-column justify-content-center align-items-center text-center" style="border: 1px solid rgba(255,255,255,0.1); background-color: #111;">
+                                <h4 class="fw-bold mb-2" style="font-family: 'Oswald', sans-serif; letter-spacing: 1px;">MEMBER SUPPORT</h4>
+                                <p class="text-secondary small mb-3">Dedicated concierge for your automotive needs.</p>
+                                <a href="#contact" class="btn btn-sm btn-outline-light rounded-pill px-4">Contact Concierge</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

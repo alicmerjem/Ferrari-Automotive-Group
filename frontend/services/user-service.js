@@ -60,6 +60,7 @@ generateMenuItems: function() {
       <li class="nav-item"><a href="#home" class="nav-link text-white ms-3">Home</a></li>
       <li class="nav-item"><a href="#inventory" class="nav-link text-white ms-3">Inventory</a></li>
       <li class="nav-item"><a href="#aboutus" class="nav-link text-white ms-3">About</a></li>
+      <li class="nav-item"><a href="#profile" class="nav-link text-warning ms-3">My Profile</a></li>
     `;
 
     // Only show for Admin
@@ -103,5 +104,20 @@ list: function() {
             console.error("User list error:", error);
             toastr.error("Could not load users.");
         });
+    },
+
+    loadProfile: function() {
+    const token = localStorage.getItem("user_token");
+    const user = Utils.parseJwt(token); // Decodes your JWT token
+
+    if (user) {
+        // user.first_name, user.email, etc., come from your JWT payload
+        $("#profile-full-name").text((user.first_name || "") + " " + (user.last_name || ""));
+        $("#profile-email").text(user.email || "N/A");
+        $("#profile-role").text(user.role === 'ADMIN' ? "Elite Administrator" : "Scuderia Member");
+        $("#user-initials").text(user.first_name ? user.first_name.charAt(0).toUpperCase() : "U");
+    } else {
+        window.location.hash = "#login";
     }
+},
 };
