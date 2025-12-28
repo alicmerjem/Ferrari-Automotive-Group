@@ -2,60 +2,85 @@ var UserService = {
   init: function () {
     var token = localStorage.getItem("user_token");
     
-    // Redirect logic
+    // Redirect if already logged in
     if (token && (window.location.hash === "#login" || window.location.hash === "")) {
       window.location.replace("index.html");
     }
 
-    // 1. Controller Logic: Login Form Validation & Submission
+    // 1. Controller: Login Form Validation
     $("#login-form").validate({
       rules: {
         email: { required: true, email: true },
         password: { required: true, minlength: 5 }
       },
+      messages: {
+        email: {
+          required: "Please enter your email",
+          email: "Please enter a valid email address"
+        },
+        password: {
+          required: "Password is required",
+          minlength: "Password must be at least 5 characters"
+        }
+      },
       submitHandler: function (form) {
         var entity = Object.fromEntries(new FormData(form).entries());
         UserService.login(entity);
-      },
+      }
     });
 
-    // 2. Controller Logic: Register Form Validation (Added for Milestone 5)
+    // 2. Controller: Registration Form Validation
     $("#register-form").validate({
       rules: {
         first_name: "required",
         last_name: "required",
         email: { required: true, email: true },
-        password: { required: true, minlength: 6 }
+        password: { required: true, minlength: 8, maxlength: 20 }
+      },
+      messages: {
+        first_name: "Please enter your first name",
+        last_name: "Please enter your last name",
+        email: "A valid email is required for registration",
+        password: {
+          required: "Please provide a password",
+          minlength: "Password must be at least 8 characters",
+          maxlength: "Password cannot exceed 20 characters"
+        }
       },
       submitHandler: function (form) {
         var entity = Object.fromEntries(new FormData(form).entries());
         UserService.register(entity);
-      },
+      }
     });
   },
 
   // --- DATA METHODS (Model/Service Layer) ---
 
   login: function (entity) {
+    $.blockUI({ message: '<h3>Processing Login...</h3>' });
     RestClient.post("auth/login", entity, function (result) {
+      $.unblockUI();
       if (result.data && result.data.token) {
         localStorage.setItem("user_token", result.data.token);
-        toastr.success(result.message || "Welcome back!");
+        toastr.success("Welcome back!");
         setTimeout(function() {
             window.location.replace("index.html");
         }, 1000);
       }
     }, function (error) {
-      const errorMsg = error.responseJSON?.error || "Invalid email or password";
-      toastr.error(errorMsg);
+      $.unblockUI();
+      toastr.error(error.responseJSON?.error || "Invalid email or password");
     });
   },
 
   register: function (entity) {
+    $.blockUI({ message: '<h3>Creating Account...</h3>' });
     RestClient.post("auth/register", entity, function (result) {
-      toastr.success("Registration successful! You can now login.");
+      $.unblockUI();
+      toastr.success("Registration successful!");
       window.location.hash = "#login";
     }, function (error) {
+      $.unblockUI();
       toastr.error(error.responseJSON?.message || "Registration failed");
     });
   },
@@ -68,7 +93,6 @@ var UserService = {
 
   list: function() {
     RestClient.get("api/users", function(data) {
-        // Separation of Concerns: We call a specific render function
         UserService.renderUserTable(data);
     }, function(error) {
         toastr.error("Could not load users.");
@@ -92,11 +116,9 @@ var UserService = {
             <td><span class="badge ${badgeClass}">${role}</span></td>
         </tr>`;
     }
-    
     if (data.length === 0) {
         html = '<tr><td colspan="4" class="text-center">No users found.</td></tr>';
     }
-    
     $("#users-table tbody").html(html);
   },
 
@@ -111,11 +133,9 @@ var UserService = {
         <li class="nav-item"><a href="#aboutus" class="nav-link text-white ms-3">About</a></li>
         <li class="nav-item"><a href="#profile" class="nav-link text-warning ms-3">My Profile</a></li>
       `;
-
       if (user.role === Constants.ADMIN_ROLE) {
         nav += `<li class="nav-item"><a href="#admin_panel" class="nav-link text-warning ms-3">Admin Panel</a></li>`;
       }
-
       nav += `<li class="nav-item"><a href="javascript:void(0)" onclick="UserService.logout()" class="nav-link text-danger ms-3">Logout</a></li>`;
       $(".navbar-nav").html(nav);
     }
@@ -124,7 +144,6 @@ var UserService = {
   loadProfile: function() {
     const token = localStorage.getItem("user_token");
     const user = Utils.parseJwt(token);
-
     if (user) {
         $("#profile-full-name").text((user.first_name || "") + " " + (user.last_name || ""));
         $("#profile-email").text(user.email || "N/A");

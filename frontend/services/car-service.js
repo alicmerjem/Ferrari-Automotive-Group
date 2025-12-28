@@ -1,12 +1,18 @@
 var CarService = {
   init: function() {
-    // Controller Logic: Setup validation for the add car form (Milestone 5 Requirement)
+    // Controller: Add Car Validation
     $("#add-car-form").validate({
       rules: {
         model: { required: true },
         year: { required: true, digits: true },
         price: { required: true, number: true },
         category: { required: true }
+      },
+      messages: {
+        model: "Please specify the car model",
+        year: "Please enter a valid production year",
+        price: "Price must be a valid number",
+        category: "Please select a category"
       },
       submitHandler: function(form) {
         var entity = Object.fromEntries(new FormData(form).entries());
@@ -19,16 +25,20 @@ var CarService = {
 
   list: function() {
     RestClient.get("api/cars", function(data) {
-      // Logic: Fetch data and then pass it to the View
       CarService.renderCarTable(data);
     });
   },
 
   save: function(entity) {
+    $.blockUI({ message: '<h3>Saving Car...</h3>' });
     RestClient.post("api/cars", entity, function(response) {
+      $.unblockUI();
       $("#addCarModal").modal("hide");
       toastr.success("Saved!");
       CarService.list();
+    }, function(error) {
+      $.unblockUI();
+      toastr.error("Error saving car");
     });
   },
 
@@ -45,7 +55,6 @@ var CarService = {
       var status = data[i].status ? data[i].status.toLowerCase() : 'available';
       var badgeClass = (status === 'available') ? "bg-success" : (status === 'sold' ? "bg-danger" : "bg-warning text-dark");
       
-      // Reverted to your exact original 5-column structure
       html += `
       <tr>
         <td class="fw-bold">${data[i].model}</td>
