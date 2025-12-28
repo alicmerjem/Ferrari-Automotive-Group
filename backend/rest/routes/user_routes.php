@@ -1,5 +1,6 @@
 <?php
-/**
+Flight::group('/api', function() {
+    /**
  * @OA\Get(
  *     path="/users/{id}",
  *     tags={"users"},
@@ -134,5 +135,6 @@ Flight::route('PUT /users/@id', function($id){
 Flight::route('DELETE /users/@id', function($id){
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::userService()->delete($id));
+});
 });
 ?>

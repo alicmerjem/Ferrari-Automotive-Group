@@ -1,5 +1,4 @@
 let RestClient = {
-
   get: function (url, callback, error_callback) {
     $.ajax({
       url: Constants.PROJECT_BASE_URL + url,
@@ -28,7 +27,8 @@ let RestClient = {
     $.ajax({
       url: Constants.PROJECT_BASE_URL + url,
       type: method,
-      data: data,
+      // Stringify converts the JS object to a JSON string for the backend
+      data: data ? JSON.stringify(data) : null,
       beforeSend: function (xhr) {
         const token = localStorage.getItem("user_token");
         if (token) {

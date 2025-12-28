@@ -3,6 +3,7 @@ require_once 'BaseDao.php';
 
 class CarDao extends BaseDao {
     public function __construct() {
+        // Keep it as car_id since that's your database column
         parent::__construct("cars", "car_id");
     }
 

@@ -1067,3 +1067,72 @@ textarea::placeholder {
     font-size: 1.5rem;
   }
 }
+
+/* Admin Panel Specific Styling */
+.admin-section {
+    padding-top: 120px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #000 0%, #1a1a1a 100%);
+}
+
+.admin-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.admin-title {
+    font-family: 'Oswald', sans-serif;
+    color: #b11226;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.table-ferrari {
+    color: #e5e5e5;
+    font-family: 'Lato', sans-serif;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.table-ferrari thead th {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    color: #b11226;
+    border-bottom: 2px solid #b11226;
+    padding-bottom: 15px;
+}
+
+.table-ferrari tbody tr {
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+}
+
+.table-ferrari tbody tr:hover {
+    background: rgba(177, 18, 38, 0.1);
+    transform: scale(1.01);
+}
+
+.table-ferrari td {
+    vertical-align: middle;
+    padding: 15px;
+    border: none;
+}
+
+.btn-admin-add {
+    font-family: 'Oswald', sans-serif;
+    background-color: #b11226;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+.btn-admin-add:hover {
+    background-color: #fff;
+    color: #b11226;
+    box-shadow: 0 0 15px rgba(177, 18, 38, 0.5);
+}

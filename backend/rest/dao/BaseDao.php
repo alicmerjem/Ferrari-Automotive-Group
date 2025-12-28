@@ -34,14 +34,27 @@ class BaseDao {
     }
 
     public function update($id, $data) {
+        // Remove the primary key from data if it exists to avoid conflicts
+        if (isset($data[$this->primary_key])) {
+            unset($data[$this->primary_key]);
+        }
+        if (isset($data['id'])) {
+            unset($data['id']);
+        }
+        
         $fields = "";
         foreach ($data as $key => $value) {
             $fields .= "$key = :$key, ";
         }
         $fields = rtrim($fields, ", ");
-        $sql = "UPDATE " . $this->table_name . " SET $fields WHERE " . $this->primary_key . " = :id";
+        
+        // Use primary_key_param to avoid naming conflicts
+        $sql = "UPDATE " . $this->table_name . " SET $fields WHERE " . $this->primary_key . " = :primary_key_param";
         $stmt = $this->connection->prepare($sql);
-        $data['id'] = $id;
+        
+        // Add the ID with a safe parameter name
+        $data['primary_key_param'] = $id;
+        
         return $stmt->execute($data);
     }
 

@@ -1,0 +1,102 @@
+<section class="admin-section">
+  <div class="container">
+    <div class="admin-card p-4">
+      
+      <ul class="nav nav-pills mb-4 border-bottom border-secondary pb-3" id="adminTabs" role="tablist">
+        <li class="nav-item">
+          <button class="nav-link active btn-outline-danger me-2" id="cars-tab" data-bs-toggle="tab" data-bs-target="#cars-content" type="button">
+            <i class="fas fa-car me-2"></i>Inventory
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link btn-outline-danger" id="users-tab" data-bs-toggle="tab" data-bs-target="#users-content" type="button" onclick="UserService.list()">
+            <i class="fas fa-users me-2"></i>Users
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="adminTabContent">
+        <div class="tab-pane fade show active" id="cars-content">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="admin-title m-0 text-uppercase">Ferrari Inventory</h2>
+            <button class="btn btn-danger px-4" onclick="CarService.openAddModal()">+ Add Car</button>
+          </div>
+          <div class="table-responsive">
+            <table id="cars-table" class="table table-ferrari w-100">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Year</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="users-content">
+          <h2 class="admin-title mb-4 text-uppercase">Registered Users</h2>
+          <div class="table-responsive">
+            <table id="users-table" class="table table-ferrari w-100">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="addCarModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-dark text-white border-danger">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title admin-title">Add New Ferrari Entry</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="add-car-form" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Model Name</label>
+              <input type="text" name="model" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Year</label>
+              <input type="number" name="year" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Price ($)</label>
+              <input type="number" name="price" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Category</label>
+              <input type="text" name="category" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Status</label>
+              <select name="status" class="form-select">
+                <option value="available">Available</option>
+                <option value="reserved">Reserved</option>
+                <option value="sold">Sold</option>
+              </select>
+            </div>
+            <div class="col-12 text-end mt-4">
+              <button type="submit" class="btn btn-danger w-100 py-2">Save to Database</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

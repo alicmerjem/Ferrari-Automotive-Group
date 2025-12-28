@@ -1,5 +1,4 @@
 let Utils = {
-
   datatable: function (table_id, columns, data, pageLength = 15) {
     if ($.fn.dataTable.isDataTable("#" + table_id)) {
       $("#" + table_id).DataTable().destroy();
@@ -15,11 +14,15 @@ let Utils = {
 
   parseJwt: function (token) {
     if (!token) return null;
-
     try {
-      const base64Payload = token.split('.')[1];
-      const payload = atob(base64Payload);
-      return JSON.parse(payload).user || JSON.parse(payload);
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      const decoded = JSON.parse(jsonPayload);
+      return decoded.user || decoded;
     } catch (e) {
       console.error("Invalid JWT token", e);
       return null;
@@ -38,6 +41,8 @@ let Utils = {
 
   logout: function () {
     localStorage.removeItem("user_token");
-    window.location.href = "login.html";
+    // This goes back to home or login page
+    window.location.hash = "#home"; 
+    window.location.reload();
   }
 };

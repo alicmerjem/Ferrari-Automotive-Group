@@ -80,7 +80,7 @@ Flight::group('/auth', function() {
                 'data' => $response['data']
             ]);
         } else {
-            Flight::halt(401, $response['error']);
+            Flight::halt(401, json_encode(['error' => $response['error']]));
         }
     });
 

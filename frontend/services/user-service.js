@@ -1,186 +1,107 @@
 var UserService = {
-  init: function() {
+  init: function () {
     var token = localStorage.getItem("user_token");
-    
-    // Redirect logic
-    if (token && (window.location.pathname.includes("login.html") || 
-                  window.location.pathname.includes("register.html"))) {
+    // If we have a token and the user is on the login page, send them home
+    if (token && (window.location.hash === "#login" || window.location.hash === "")) {
       window.location.replace("index.html");
     }
     
-    if (!token && !window.location.pathname.includes("login.html") && 
-        !window.location.pathname.includes("register.html")) {
-      window.location.replace("login.html");
-    }
-    
-    // Login form
-    if ($("#login-form").length > 0) {
-      $("#login-form").validate({
-        rules: {
-          email: { required: true, email: true },
-          password: { required: true, minlength: 6 }
-        },
-        submitHandler: function(form) {
-          var entity = Object.fromEntries(new FormData(form).entries());
-          UserService.login(entity);
-        }
-      });
-    }
-    
-    // Register form
-    if ($("#register-form").length > 0) {
-      $("#register-form").validate({
-        rules: {
-          first_name: "required",
-          last_name: "required",
-          email: { required: true, email: true },
-          password: { required: true, minlength: 6 }
-        },
-        submitHandler: function(form) {
-          var entity = Object.fromEntries(new FormData(form).entries());
-          UserService.register(entity);
-        }
-      });
-    }
+    // Setup validation for the login form (Lab requirement)
+    $("#login-form").validate({
+      submitHandler: function (form) {
+        var entity = Object.fromEntries(new FormData(form).entries());
+        UserService.login(entity);
+      },
+    });
   },
 
-  login: function(entity) {
-    $.ajax({
-      url: Constants.PROJECT_BASE_URL + "auth/login",
-      type: "POST",
-      data: JSON.stringify(entity),
-      contentType: "application/json",
-      dataType: "json",
-      success: function(result) {
-        if (result.success && result.data && result.data.token) {
-          localStorage.setItem("user_token", result.data.token);
-          toastr.success("Login successful!");
-          setTimeout(function() {
+login: function (entity) {
+    RestClient.post("auth/login", entity, function (result) {
+      // Based on your AuthRoutes: result.data contains the user + token
+      if (result.data && result.data.token) {
+        localStorage.setItem("user_token", result.data.token);
+        toastr.success(result.message || "Welcome back!");
+        
+        // Wait a second so they see the success message, then go home
+        setTimeout(function(){
             window.location.replace("index.html");
-          }, 500);
-        } else {
-          toastr.error("Login failed");
-        }
-      },
-      error: function(xhr) {
-        toastr.error(xhr.responseJSON?.message || "Login failed");
+        }, 1000);
       }
+    }, function (error) {
+      // This will now show the REAL error from your AuthService
+      const errorMsg = error.responseJSON?.error || "Invalid email or password";
+      toastr.error(errorMsg);
     });
   },
 
-  register: function(entity) {
-    $.ajax({
-      url: Constants.PROJECT_BASE_URL + "auth/register",
-      type: "POST",
-      data: JSON.stringify(entity),
-      contentType: "application/json",
-      dataType: "json",
-      success: function(result) {
-        if (result.success) {
-          toastr.success("Registration successful! Please login.");
-          setTimeout(function() {
-            window.location.replace("login.html");
-          }, 1000);
-        } else {
-          toastr.error(result.message || "Registration failed");
-        }
-      },
-      error: function(xhr) {
-        toastr.error(xhr.responseJSON?.message || "Registration failed");
-      }
+  register: function (entity) {
+    RestClient.post("auth/register", entity, function (result) {
+      toastr.success("Registration successful! You can now login.");
+      window.location.hash = "#login";
+    }, function (error) {
+      toastr.error(error.responseJSON?.message || "Registration failed");
     });
   },
 
-  logout: function() {
-    localStorage.removeItem("user_token");
-    toastr.success("Logged out successfully");
-    setTimeout(function() {
-      window.location.replace("login.html");
-    }, 500);
+logout: function () {
+    localStorage.clear();
+    window.location.hash = "#home"; // Go to home hash
+    window.location.reload();      // Refresh to clear the dynamic navbar
   },
 
-  getCurrentUser: function() {
-    const token = localStorage.getItem("user_token");
-    return Utils.parseJwt(token);
-  },
+  // This is the "Magic" function from your lab doc 
+  // It changes the UI based on who is logged in
+generateMenuItems: function() {
+  const token = localStorage.getItem("user_token");
+  const user = Utils.parseJwt(token);
 
-  generateMenuItems: function() {
-    const user = this.getCurrentUser();
-    
-    if (!user) {
-      window.location.replace("login.html");
-      return;
+  if (user && user.role) {
+    let nav = `
+      <li class="nav-item"><a href="#home" class="nav-link text-white ms-3">Home</a></li>
+      <li class="nav-item"><a href="#inventory" class="nav-link text-white ms-3">Inventory</a></li>
+      <li class="nav-item"><a href="#aboutus" class="nav-link text-white ms-3">About</a></li>
+    `;
+
+    // Only show for Admin
+    if (user.role === Constants.ADMIN_ROLE) {
+      nav += `<li class="nav-item"><a href="#admin_panel" class="nav-link text-warning ms-3">Admin Panel</a></li>`;
     }
+
+    // Replace Login/Register with Logout
+    nav += `<li class="nav-item"><a href="javascript:void(0)" onclick="UserService.logout()" class="nav-link text-danger ms-3">Logout</a></li>`;
     
-    let nav = "";
-    let main = "";
-    
-    if (user.role === 'admin') {
-      // ADMIN - Can see all pages
-      nav = `
-        <li class="nav-item">
-          <a class="nav-link" href="#home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#inventory">Manage Inventory</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#services">Service Appointments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#aboutus">About Us</a>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-outline-danger btn-sm" onclick="UserService.logout()">Logout</button>
-        </li>
-      `;
-      
-      main = `
-        <section id="home" data-load="home.html"></section>
-        <section id="inventory" data-load="inventory.html"></section>
-        <section id="services" data-load="services.html"></section>
-        <section id="aboutus" data-load="aboutus.html"></section>
-      `;
-    } else {
-      // CUSTOMER - Can browse and book services
-      nav = `
-        <li class="nav-item">
-          <a class="nav-link" href="#home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#inventory">Browse Inventory</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#services">Book Service</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#aboutus">About Us</a>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-outline-danger btn-sm" onclick="UserService.logout()">Logout</button>
-        </li>
-      `;
-      
-      main = `
-        <section id="home" data-load="home.html"></section>
-        <section id="inventory" data-load="inventory.html"></section>
-        <section id="services" data-load="services.html"></section>
-        <section id="aboutus" data-load="aboutus.html"></section>
-      `;
-    }
-    
-    // Update navigation
-    if ($("#tabs").length > 0) {
-      $("#tabs").html(nav);
-    }
-    
-    // Update main content
-    if ($("#spapp").length > 0) {
-      $("#spapp").html(main);
-    }
+    // Update the UI
+    $(".navbar-nav").html(nav);
   }
-};
+}, 
 
-$(document).ready(function() {
-  UserService.init();
-});
+list: function() {
+        console.log("Fetching users for admin table...");
+        RestClient.get("api/users", function(data) {
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                // Using user_id to match your UserDao
+                var userId = data[i].user_id;
+                var role = data[i].role ? data[i].role.toUpperCase() : 'USER';
+                var badgeClass = (role === 'ADMIN') ? 'bg-danger' : 'bg-secondary';
+                
+                html += `
+                <tr>
+                    <td class="text-muted">#${userId}</td>
+                    <td>${data[i].first_name} ${data[i].last_name}</td>
+                    <td>${data[i].email}</td>
+                    <td><span class="badge ${badgeClass}">${role}</span></td>
+                </tr>`;
+            }
+            
+            if (data.length === 0) {
+                html = '<tr><td colspan="4" class="text-center">No users found.</td></tr>';
+            }
+            
+            $("#users-table tbody").html(html);
+        }, function(error) {
+            console.error("User list error:", error);
+            toastr.error("Could not load users.");
+        });
+    }
+};
