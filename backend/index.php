@@ -1,11 +1,17 @@
 <?php
 
-header("Access-Control-Allow-Origin: https://hammerhead-app-jwr47.ondigitalocean.app");
-header('Access-Control-Allow-Origin: *');
+/**
+ * CORS Configuration
+ * Note: Only one Access-Control-Allow-Origin header is allowed.
+ */
+header("Access-Control-Allow-Origin: *"); 
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, Authentication');
 
-// Handle the "preflight" request (OPTIONS)
+/**
+ * Handle the "preflight" request (OPTIONS)
+ * This is required for browsers to allow cross-origin POST requests.
+ */
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("HTTP/1.1 200 OK");
     exit;
@@ -13,11 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+// Essential Configurations & Base Classes
 require_once __DIR__ . '/rest/services/BaseService.php';
 require_once __DIR__ . '/middleware/AuthMiddleware.php';
 require_once __DIR__ . '/data/roles.php';
 require_once __DIR__ . '/config.php';
 
+// Service Layer
 require_once __DIR__ . '/rest/services/AuthService.php';
 require_once __DIR__ . '/rest/services/CarService.php';
 require_once __DIR__ . '/rest/services/UserService.php';
@@ -29,7 +37,7 @@ require_once __DIR__ . '/rest/services/TestdriveService.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-// Register services and middleware
+// Register services and middleware into Flight
 Flight::register('auth_service', 'AuthService');
 Flight::register('auth_middleware', 'AuthMiddleware');
 Flight::register('carService', 'CarService');
@@ -39,11 +47,13 @@ Flight::register('contactService', 'ContactService');
 Flight::register('serviceService', 'ServiceService');
 Flight::register('testdriveService', 'TestdriveService');
 
-// Global token verification before routes
+/**
+ * Global Middleware: Token verification before routes start
+ */
 Flight::before('start', function (&$params, &$output) {
     $url = Flight::request()->url;
 
-    // Public routes
+    // 1. Define Public Routes (No token required)
     if (
         strpos($url, 'login') !== false ||
         strpos($url, 'register') !== false ||
@@ -52,25 +62,27 @@ Flight::before('start', function (&$params, &$output) {
         return TRUE;
     }
 
+    // 2. Extract Authorization Header
     $authHeader = Flight::request()->getHeader("Authorization");
 
     if (!$authHeader) {
-        Flight::halt(401, "Missing Authorization header");
+        Flight::halt(401, json_encode(["error" => "Missing Authorization header"]));
     }
 
-    // Extract token and clean it thoroughly
-    if (strpos($authHeader, 'Bearer ') === 0) {
-        $token = substr($authHeader, 7);
-        // Remove ALL whitespace and control characters
+    // 3. Extract and Clean JWT Token
+    if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+        $token = $matches[1];
+        // Clean invisible control characters and whitespace
         $token = preg_replace('/[\s\x00-\x1F\x7F]/', '', $token);
     } else {
-        Flight::halt(401, "Invalid Authorization header format");
+        Flight::halt(401, json_encode(["error" => "Invalid Authorization header format"]));
     }
 
+    // 4. Verification logic inside AuthMiddleware
     Flight::auth_middleware()->verifyToken($token);
 });
 
-// Include routes
+// Include Route Definitions
 require_once __DIR__ . '/rest/routes/AuthRoutes.php';
 require_once __DIR__ . '/rest/routes/car_routes.php';
 require_once __DIR__ . '/rest/routes/user_routes.php';
@@ -79,11 +91,15 @@ require_once __DIR__ . '/rest/routes/contact_routes.php';
 require_once __DIR__ . '/rest/routes/service_routes.php';
 require_once __DIR__ . '/rest/routes/testdrive_routes.php';
 
-// Root endpoint
+/**
+ * Root Endpoint - Information and Health Check
+ */
 Flight::route('/', function() {
+    header('Content-Type: application/json');
     echo json_encode([
         'message' => 'Ferrari Automotive Group API',
         'version' => '1.0',
+        'status' => 'Online',
         'endpoints' => [
             '/auth/register' => 'User registration',
             '/auth/login' => 'User login',
@@ -97,5 +113,6 @@ Flight::route('/', function() {
     ]);
 });
 
+// Start the Flight framework
 Flight::start();
 ?>

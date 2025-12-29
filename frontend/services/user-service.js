@@ -58,7 +58,7 @@ var UserService = {
 
   login: function (entity) {
     $.blockUI({ message: '<h3>Processing Login...</h3>' });
-    RestClient.post("auth/login.php", entity, function (result) {
+    RestClient.post("auth/login", entity, function (result) {
       $.unblockUI();
       if (result.data && result.data.token) {
         localStorage.setItem("user_token", result.data.token);
@@ -75,7 +75,7 @@ var UserService = {
 
   register: function (entity) {
     $.blockUI({ message: '<h3>Creating Account...</h3>' });
-    RestClient.post("auth/register.php", entity, function (result) {
+    RestClient.post("auth/register", entity, function (result) {
       $.unblockUI();
       toastr.success("Registration successful!");
       window.location.hash = "#login";
