@@ -15,7 +15,7 @@
 */
 /**
 * @OA\Server(
-*     url= "http://localhost/MerjemAlic/Ferrari-Automotive-Group/backend",
+*     url= "https://hammerhead-app-jwr47.ondigitalocean.app",
 *     description="API server"
 * )
 */
