@@ -1,33 +1,26 @@
 <?php
-// Set error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 class Config {
-    public static function DB_HOST() {
-        return 'localhost';
-    }
-
-    public static function DB_NAME() {
-        return 'ferrari_automotive_group';
-    }
-
-    public static function DB_USER() {
-        return 'root';
-    }
-
-    public static function DB_PASSWORD() {
-        return '';
-    }
-
-    public static function DB_PORT() {
-        return 3306;
-    }
-
-    public static function JWT_SECRET() {
-        return 'Ec2FISbLxDeIe9GrpuhjC03yzPvjRWvM';
-    }
+   public static function DB_NAME() {
+       return Config::get_env("DB_NAME", "ferrari_automotive_group");
+   }
+   public static function DB_PORT() {
+       return Config::get_env("DB_PORT", 3306);
+   }
+   public static function DB_USER() {
+       return Config::get_env("DB_USER", 'root');
+   }
+   public static function DB_PASSWORD() {
+       return Config::get_env("DB_PASSWORD", '');
+   }
+   public static function DB_HOST() {
+       return Config::get_env("DB_HOST", '127.0.0.1');
+   }
+   public static function JWT_SECRET() {
+      return Config::get_env("JWT_SECRET", 'Ec2FISbLxDeIe9GrpuhjC03yzPvjRWvM');
+   }
+   public static function get_env($name, $default){
+       return isset($_ENV[$name]) && trim($_ENV[$name]) != "" ? $_ENV[$name] : $default;
+   }
 }
 
 class Database {
@@ -36,13 +29,19 @@ class Database {
     public static function connect() {
         if (self::$connection === null) {
             try {
+                // Point to the certificate file you downloaded
+                $cert = __DIR__ . "/ca-certificate.crt";
+
                 self::$connection = new PDO(
                     "mysql:host=" . Config::DB_HOST() . ";dbname=" . Config::DB_NAME() . ";port=" . Config::DB_PORT(),
                     Config::DB_USER(),
                     Config::DB_PASSWORD(),
                     [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                        // This line is mandatory for DigitalOcean Clusters
+                        PDO::MYSQL_ATTR_SSL_CA => $cert,
+                        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false
                     ]
                 );
             } catch (PDOException $e) {

@@ -1,10 +1,12 @@
 <?php
-/**
+Flight::group('/api', function() {
+    /**
  * @OA\Get(
  *     path="/users/{id}",
  *     tags={"users"},
  *     summary="Get a user by ID",
  *     description="Returns a single user matching the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -20,7 +22,6 @@
  */
 // Get user by ID
 Flight::route('GET /users/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::userService()->getById($id));
 });
@@ -31,6 +32,7 @@ Flight::route('GET /users/@id', function($id){
  *     tags={"users"},
  *     summary="Get all users",
  *     description="Returns a list of all users in the database.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="List of users returned successfully"
@@ -39,7 +41,6 @@ Flight::route('GET /users/@id', function($id){
  */
 // Get all users
 Flight::route('GET /users', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::userService()->getAll());
 });
@@ -50,13 +51,15 @@ Flight::route('GET /users', function(){
  *     tags={"users"},
  *     summary="Create a new user",
  *     description="Adds a new user to the system.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"name", "email", "password"},
- *             @OA\Property(property="name", type="string", example="John Doe"),
+ *             required={"first_name", "last_name", "email", "password"},
+ *             @OA\Property(property="first_name", type="string", example="John"),
+ *             @OA\Property(property="last_name", type="string", example="Doe"),
  *             @OA\Property(property="email", type="string", example="john@example.com"),
- *             @OA\Property(property="password", type="string", example="securepassword123")
+ *             @OA\Property(property="password_hash", type="string", example="securepassword123")
  *         )
  *     ),
  *     @OA\Response(
@@ -67,7 +70,6 @@ Flight::route('GET /users', function(){
  */
 // Add new user
 Flight::route('POST /users', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::userService()->create($data));
@@ -79,6 +81,7 @@ Flight::route('POST /users', function(){
  *     tags={"users"},
  *     summary="Update a user",
  *     description="Updates an existing user's information.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -89,9 +92,10 @@ Flight::route('POST /users', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Name"),
+ *             @OA\Property(property="first_name", type="string", example="Updated"),
+ *             @OA\Property(property="last_name", type="string", example="Name"),
  *             @OA\Property(property="email", type="string", example="updated@example.com"),
- *             @OA\Property(property="password", type="string", example="newsecurepassword")
+ *             @OA\Property(property="password_hash", type="string", example="newsecurepassword")
  *         )
  *     ),
  *     @OA\Response(
@@ -102,7 +106,6 @@ Flight::route('POST /users', function(){
  */
 // Update user
 Flight::route('PUT /users/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::userService()->update($id, $data));
@@ -114,6 +117,7 @@ Flight::route('PUT /users/@id', function($id){
  *     tags={"users"},
  *     summary="Delete a user",
  *     description="Deletes a user with the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -129,8 +133,8 @@ Flight::route('PUT /users/@id', function($id){
  */
 // Delete user
 Flight::route('DELETE /users/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::userService()->delete($id));
+});
 });
 ?>

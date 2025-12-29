@@ -15,16 +15,17 @@
 */
 /**
 * @OA\Server(
-*     url= "http://localhost/MerjemAlic/Ferrari-Automotive-Group/backend",
+*     url= "https://hammerhead-app-jwr47.ondigitalocean.app",
 *     description="API server"
 * )
 */
 /**
 * @OA\SecurityScheme(
-*     securityScheme="ApiKey",
-*     type="apiKey",
-*     in="header",
-*     name="Authentication"
+*     securityScheme="bearerAuth",
+*     type="http",
+*     scheme="bearer",
+*     bearerFormat="JWT",
+*     description="Enter JWT Bearer token"
 * )
 */
 ?>

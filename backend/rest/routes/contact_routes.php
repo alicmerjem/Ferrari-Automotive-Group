@@ -5,6 +5,7 @@
  *     tags={"contacts"},
  *     summary="Get a contact by ID",
  *     description="Returns a single contact matching the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -20,7 +21,6 @@
  */
 // Get contact by ID
 Flight::route('GET /contacts/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);    
     Flight::json(Flight::contactService()->getById($id));
 });
@@ -31,6 +31,7 @@ Flight::route('GET /contacts/@id', function($id){
  *     tags={"contacts"},
  *     summary="Get all contacts",
  *     description="Returns a list of all contacts in the database.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="List of contacts returned successfully"
@@ -39,7 +40,6 @@ Flight::route('GET /contacts/@id', function($id){
  */
 // Get all contacts
 Flight::route('GET /contacts', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::contactService()->getAll());
 });
@@ -50,11 +50,13 @@ Flight::route('GET /contacts', function(){
  *     tags={"contacts"},
  *     summary="Create a new contact",
  *     description="Adds a new contact to the system.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
  *             required={"name", "email", "phone"},
- *             @OA\Property(property="name", type="string", example="John Doe"),
+ *             @OA\Property(property="first_name", type="string", example="John"),
+ *             @OA\Property(property="last_name", type="string", example="Doe"),
  *             @OA\Property(property="email", type="string", example="john@example.com"),
  *             @OA\Property(property="phone", type="string", example="+1234567890"),
  *             @OA\Property(property="message", type="string", example="I am interested in your services")
@@ -68,7 +70,6 @@ Flight::route('GET /contacts', function(){
  */
 // Add new contact
 Flight::route('POST /contacts', function(){
-    Flight::auth_middleware()->verifyToken();
     $data = Flight::request()->data->getData();
     Flight::json(Flight::contactService()->create($data));
 });
@@ -79,6 +80,7 @@ Flight::route('POST /contacts', function(){
  *     tags={"contacts"},
  *     summary="Update a contact",
  *     description="Updates an existing contact's information.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -89,7 +91,8 @@ Flight::route('POST /contacts', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Name"),
+ *             @OA\Property(property="first_name", type="string", example="Updated"),
+ *             @OA\Property(property="last_name", type="string", example="Name"),
  *             @OA\Property(property="email", type="string", example="updated@example.com"),
  *             @OA\Property(property="phone", type="string", example="+9876543210"),
  *             @OA\Property(property="message", type="string", example="Updated message content")
@@ -103,7 +106,6 @@ Flight::route('POST /contacts', function(){
  */
 // Update contact
 Flight::route('PUT /contacts/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::contactService()->update($id, $data));
@@ -115,6 +117,7 @@ Flight::route('PUT /contacts/@id', function($id){
  *     tags={"contacts"},
  *     summary="Delete a contact",
  *     description="Deletes a contact with the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -130,7 +133,6 @@ Flight::route('PUT /contacts/@id', function($id){
  */
 // Delete contact
 Flight::route('DELETE /contacts/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::contactService()->delete($id));
 });

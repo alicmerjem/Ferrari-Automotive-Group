@@ -5,6 +5,7 @@
  *     tags={"services"},
  *     summary="Get a service by ID",
  *     description="Returns a single service matching the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -20,7 +21,6 @@
  */
 // Get service by ID
 Flight::route('GET /services/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::serviceService()->getById($id));
 });
@@ -31,6 +31,7 @@ Flight::route('GET /services/@id', function($id){
  *     tags={"services"},
  *     summary="Get all services",
  *     description="Returns a list of all services in the database.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="List of services returned successfully"
@@ -39,7 +40,6 @@ Flight::route('GET /services/@id', function($id){
  */
 // Get all services
 Flight::route('GET /services', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::serviceService()->getAll());
 });
@@ -50,13 +50,14 @@ Flight::route('GET /services', function(){
  *     tags={"services"},
  *     summary="Create a new service",
  *     description="Adds a new service to the system.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"name", "description", "price"},
- *             @OA\Property(property="name", type="string", example="Oil Change"),
- *             @OA\Property(property="description", type="string", example="Full synthetic oil change"),
- *             @OA\Property(property="price", type="number", example=100)
+ *             required={"car_id" ,"service_type", "notes"},
+ *             @OA\Property(property="car_id", type="integer", example=2),
+ *             @OA\Property(property="service_type", type="string", example="Oil Change"),
+ *             @OA\Property(property="notes", type="string", example="Full synthetic oil change")
  *         )
  *     ),
  *     @OA\Response(
@@ -67,9 +68,10 @@ Flight::route('GET /services', function(){
  */
 // Add new service
 Flight::route('POST /services', function(){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
+    $user = Flight::get('user');
+    $data['user_id'] = $user->user_id;
     Flight::json(Flight::serviceService()->create($data));
 });
 
@@ -79,6 +81,7 @@ Flight::route('POST /services', function(){
  *     tags={"services"},
  *     summary="Update a service",
  *     description="Updates an existing service's information.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -89,9 +92,8 @@ Flight::route('POST /services', function(){
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Service Name"),
- *             @OA\Property(property="description", type="string", example="Updated description"),
- *             @OA\Property(property="price", type="number", example=120)
+ *             @OA\Property(property="service_type", type="string", example="Updated Service Name"),
+ *             @OA\Property(property="notes", type="string", example="Updated description")
  *         )
  *     ),
  *     @OA\Response(
@@ -102,7 +104,6 @@ Flight::route('POST /services', function(){
  */
 // Update service
 Flight::route('PUT /services/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::serviceService()->update($id, $data));
@@ -114,6 +115,7 @@ Flight::route('PUT /services/@id', function($id){
  *     tags={"services"},
  *     summary="Delete a service",
  *     description="Deletes a service with the given ID.",
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -129,7 +131,6 @@ Flight::route('PUT /services/@id', function($id){
  */
 // Delete service
 Flight::route('DELETE /services/@id', function($id){
-    Flight::auth_middleware()->verifyToken();
     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::serviceService()->delete($id));
 });
